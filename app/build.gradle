@@ -1,0 +1,60 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+    defaultConfig {
+        applicationId "com.tyagiabhinav.udacitycourseviewer"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation "com.android.support:appcompat-v7:$supportLibraryVersion"
+    implementation "com.android.support:design:$supportLibraryVersion"
+
+    implementation "android.arch.persistence.room:runtime:$roomVersion"
+    annotationProcessor "android.arch.persistence.room:compiler:$roomVersion"
+
+    implementation "com.google.dagger:dagger:$daggerVersion"
+    implementation "com.google.dagger:dagger-android:$daggerVersion"
+    implementation "com.google.dagger:dagger-android-support:$daggerVersion"
+    annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
+    annotationProcessor "com.google.dagger:dagger-android-processor:$daggerVersion"
+    compileOnly 'org.glassfish:javax.annotation:10.0-b28'
+
+//    implementation "com.google.dagger:dagger:$daggerVersion"
+//    implementation "com.google.dagger:dagger-android-support:$daggerVersion"
+//    annotationProcessor "com.google.dagger:dagger-android-processor:$daggerVersion"
+//    annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
+
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-moshi:$retrofitVersion"
+
+    implementation "com.google.code.gson:gson:$gsonVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$gsonConverterVersion"
+
+//    annotationProcessor "com.ryanharter.auto.value:auto-value-gson:$autoValueGsonVersion"
+//    compileOnly "com.ryanharter.auto.value:auto-value-gson-annotations:$autoValueGsonVersion"
+//    compileOnly "com.google.auto.value:auto-value:$autoValueVersion"
+//    annotationProcessor "com.google.auto.value:auto-value:$autoValueVersion"
+
+
+    testImplementation "junit:junit:$junitVersion"
+    androidTestImplementation "com.android.support.test:runner:$testRunnerVersion"
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:$espressoVersion"
+}
