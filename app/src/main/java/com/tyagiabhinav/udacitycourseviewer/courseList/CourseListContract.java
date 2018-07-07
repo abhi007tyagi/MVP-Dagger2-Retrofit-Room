@@ -2,9 +2,10 @@ package com.tyagiabhinav.udacitycourseviewer.courseList;
 
 import com.tyagiabhinav.udacitycourseviewer.BasePresenter;
 import com.tyagiabhinav.udacitycourseviewer.BaseView;
-import com.tyagiabhinav.udacitycourseviewer.model.pojo.Courses;
 
 import java.util.List;
+
+import com.tyagiabhinav.udacitycourseviewer.pojo.Courses;
 
 /**
  * contract between the view and the presenter.

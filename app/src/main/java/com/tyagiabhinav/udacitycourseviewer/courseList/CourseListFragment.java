@@ -7,13 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.tyagiabhinav.udacitycourseviewer.R;
-import com.tyagiabhinav.udacitycourseviewer.model.pojo.Courses;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
 import dagger.android.support.DaggerFragment;
+import com.tyagiabhinav.udacitycourseviewer.pojo.Courses;
 
 
 public class CourseListFragment extends DaggerFragment implements CourseListContract.View{

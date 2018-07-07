@@ -4,17 +4,14 @@ import android.os.Bundle;
 
 import com.tyagiabhinav.udacitycourseviewer.R;
 
-import javax.inject.Inject;
-
-import dagger.Lazy;
 import dagger.android.support.DaggerAppCompatActivity;
 
 public class CourseListActivity extends DaggerAppCompatActivity {
 
-    @Inject
-    CourseListPresenter mCourseListPresenter;
-    @Inject
-    Lazy<CourseListFragment> mCourseListFragmentProvider;
+//    @Inject
+//    CourseListPresenter mCourseListPresenter;
+//    @Inject
+//    Lazy<CourseListFragment> mCourseListFragmentProvider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
