@@ -1,14 +1,12 @@
 package com.tyagiabhinav.udacitycourseviewer.courseList;
 
-import javax.annotation.Nullable;
-import javax.inject.Inject;
-
 import com.tyagiabhinav.udacitycourseviewer.pojo.Courses;
+
+import javax.inject.Inject;
 
 final class CourseListPresenter implements CourseListContract.Presenter {
 
 
-    @Nullable
     private CourseListContract.View mCourseView;
 
     @Inject
