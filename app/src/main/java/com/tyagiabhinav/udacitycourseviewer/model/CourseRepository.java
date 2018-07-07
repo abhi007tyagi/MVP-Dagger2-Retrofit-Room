@@ -1,6 +1,7 @@
 package com.tyagiabhinav.udacitycourseviewer.model;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.tyagiabhinav.udacitycourseviewer.model.pojo.Courses;
 import com.tyagiabhinav.udacitycourseviewer.utils.OnlineChecker;
@@ -13,8 +14,9 @@ import javax.inject.Singleton;
 @Singleton
 public class CourseRepository implements DataSource {
 
-    private final DataSource mRemoteDataSource;
+    public static final String TAG = CourseRepository.class.getName();
 
+    private final DataSource mRemoteDataSource;
     private final DataSource mLocalDataSource;
 
     @Inject
@@ -34,24 +36,24 @@ public class CourseRepository implements DataSource {
     @Override
     public void getCourses(@NonNull GetCourseList callback) {
 
-//        if (onlineChecker.isOnline()) {
-//            // fetch cources from remote server
-//            mRemoteDataSource.getCourses(new GetCourseList() {
-//                @Override
-//                public void onCoursesFetched(List<Courses> coursesList) {
-//
-//                }
-//
-//                @Override
-//                public void onFetchFailure() {
-//                    // fetch from local database
-//                    getCoursesFromDatabase();
-//                }
-//            });
-//        } else {
-//            // offline... get from local database
-//            getCoursesFromDatabase();
-//        }
+        if (onlineChecker.isOnline()) {
+            // fetch cources from remote server
+            mRemoteDataSource.getCourses(new GetCourseList() {
+                @Override
+                public void onCoursesFetched(List<Courses> coursesList) {
+                    Log.d(TAG, "onCoursesFetched: "+coursesList.toString());
+                }
+
+                @Override
+                public void onFetchFailure() {
+                    // fetch from local database
+                    getCoursesFromDatabase();
+                }
+            });
+        } else {
+            // offline... get from local database
+            getCoursesFromDatabase();
+        }
 
     }
 

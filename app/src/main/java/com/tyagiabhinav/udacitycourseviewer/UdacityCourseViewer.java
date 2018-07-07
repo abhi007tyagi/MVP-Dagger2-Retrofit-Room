@@ -1,5 +1,6 @@
 package com.tyagiabhinav.udacitycourseviewer;
 
+import com.tyagiabhinav.udacitycourseviewer.di.DaggerApplicationComponent;
 import com.tyagiabhinav.udacitycourseviewer.model.CourseRepository;
 
 import javax.inject.Inject;
@@ -13,7 +14,7 @@ public class UdacityCourseViewer extends DaggerApplication {
 
     @Override
     protected AndroidInjector<? extends DaggerApplication> applicationInjector() {
-        return DaggerAppComponent.builder().application(this).build();
+        return DaggerApplicationComponent.builder().application(this).build(); //abbe spelling galt thi NAHI
     }
 
 }

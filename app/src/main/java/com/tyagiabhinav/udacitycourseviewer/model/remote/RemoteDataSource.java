@@ -1,6 +1,7 @@
 package com.tyagiabhinav.udacitycourseviewer.model.remote;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.tyagiabhinav.udacitycourseviewer.model.DataSource;
 import com.tyagiabhinav.udacitycourseviewer.model.pojo.ApiResponse;
@@ -10,6 +11,10 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 @Singleton
 public class RemoteDataSource implements DataSource {
@@ -29,17 +34,17 @@ public class RemoteDataSource implements DataSource {
 
     @Override
     public void getCourses(@NonNull final GetCourseList callback) {
-//        service.getCourses().enqueue(new Callback<ApiResponse>() {
-//            @Override
-//            public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
-//                Log.d(TAG, "onResponse: "+ response.body().toString());
-//            }
-//
-//            @Override
-//            public void onFailure(Call<ApiResponse> call, Throwable t) {
-//
-//            }
-//        });
+        service.getCourses().enqueue(new Callback<ApiResponse>() {
+            @Override
+            public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
+                Log.d(TAG, "onResponse: "+ response.body().toString());
+            }
+
+            @Override
+            public void onFailure(Call<ApiResponse> call, Throwable t) {
+
+            }
+        });
     }
 
     @Override
