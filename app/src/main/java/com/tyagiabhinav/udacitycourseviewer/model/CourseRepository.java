@@ -4,7 +4,7 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.tyagiabhinav.udacitycourseviewer.model.pojo.Courses;
-import com.tyagiabhinav.udacitycourseviewer.utils.OnlineChecker;
+import com.tyagiabhinav.udacitycourseviewer.utils.networkUtil.OnlineChecker;
 
 import java.util.List;
 
@@ -31,10 +31,12 @@ public class CourseRepository implements DataSource {
 
 
     @Override
-    public void saveCourses(@NonNull List<Courses> coursesList) {}
+    public void saveCourses(@NonNull List<Courses> coursesList) {
+            mLocalDataSource.saveCourses(coursesList);
+    }
 
     @Override
-    public void getCourses(@NonNull GetCourseList callback) {
+    public void getCourses(@NonNull final GetCourseList callback) {
 
         if (onlineChecker.isOnline()) {
             // fetch cources from remote server
@@ -42,17 +44,19 @@ public class CourseRepository implements DataSource {
                 @Override
                 public void onCoursesFetched(List<Courses> coursesList) {
                     Log.d(TAG, "onCoursesFetched: "+coursesList.toString());
+                    saveCourses(coursesList);
+                    callback.onCoursesFetched(coursesList);
                 }
 
                 @Override
                 public void onFetchFailure() {
                     // fetch from local database
-                    getCoursesFromDatabase();
+                    getCoursesFromDatabase(callback);
                 }
             });
         } else {
             // offline... get from local database
-            getCoursesFromDatabase();
+            getCoursesFromDatabase(callback);
         }
 
     }
@@ -62,16 +66,17 @@ public class CourseRepository implements DataSource {
 
     }
 
-    private void getCoursesFromDatabase() {
+    private void getCoursesFromDatabase(@NonNull final GetCourseList callback) {
         mLocalDataSource.getCourses(new GetCourseList() {
             @Override
             public void onCoursesFetched(List<Courses> coursesList) {
-
+                callback.onCoursesFetched(coursesList);
             }
 
             @Override
             public void onFetchFailure() {
                 // show No Data message
+                callback.onFetchFailure();
             }
         });
     }

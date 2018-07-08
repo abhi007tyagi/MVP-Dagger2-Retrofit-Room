@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class Courses {
+public class Degree {
 
     @SerializedName("instructors")
     @Expose
@@ -61,10 +61,10 @@ public class Courses {
     private String faq;
     @SerializedName("affiliates")
     @Expose
-    private List<Affiliate> affiliates = null;
+    private List<Object> affiliates = null;
     @SerializedName("tracks")
     @Expose
-    private List<String> tracks = null;
+    private List<Object> tracks = null;
     @SerializedName("banner_image")
     @Expose
     private String banner_image;
@@ -226,19 +226,19 @@ public class Courses {
         this.faq = faq;
     }
 
-    public List<Affiliate> getAffiliates() {
+    public List<Object> getAffiliates() {
         return affiliates;
     }
 
-    public void setAffiliates(List<Affiliate> affiliates) {
+    public void setAffiliates(List<Object> affiliates) {
         this.affiliates = affiliates;
     }
 
-    public List<String> getTracks() {
+    public List<Object> getTracks() {
         return tracks;
     }
 
-    public void setTracks(List<String> tracks) {
+    public void setTracks(List<Object> tracks) {
         this.tracks = tracks;
     }
 

@@ -42,7 +42,8 @@ public class Instructor {
     /**
      * Use this constructor to create a new Instructor.
      */
-    public Instructor(@NonNull String courseId, @Nullable String bio, @Nullable String name, @Nullable String image, @NonNull String uid) {
+    public Instructor(@NonNull String courseId, @Nullable String bio, @Nullable String name,
+                      @Nullable String image, @NonNull String uid) {
         this.mCourseId = courseId;
         this.mBio = bio;
         this.mName = name;

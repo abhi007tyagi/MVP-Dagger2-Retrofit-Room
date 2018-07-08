@@ -1,7 +1,7 @@
 package com.tyagiabhinav.udacitycourseviewer.di;
 
-import com.tyagiabhinav.udacitycourseviewer.courseList.CourseListActivity;
-import com.tyagiabhinav.udacitycourseviewer.courseList.CourseListModule;
+import com.tyagiabhinav.udacitycourseviewer.ui.courseList.CourseListActivity;
+import com.tyagiabhinav.udacitycourseviewer.ui.courseList.CourseListModule;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;

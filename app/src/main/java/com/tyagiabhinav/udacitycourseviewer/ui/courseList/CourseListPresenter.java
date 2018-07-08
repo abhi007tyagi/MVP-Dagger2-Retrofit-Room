@@ -1,5 +1,7 @@
-package com.tyagiabhinav.udacitycourseviewer.courseList;
+package com.tyagiabhinav.udacitycourseviewer.ui.courseList;
 
+
+import android.util.Log;
 
 import com.tyagiabhinav.udacitycourseviewer.di.ActivityScope;
 import com.tyagiabhinav.udacitycourseviewer.model.CourseRepository;
@@ -12,6 +14,8 @@ import javax.inject.Inject;
 
 @ActivityScope
 final class CourseListPresenter implements CourseListContract.Presenter {
+
+    public static final String TAG = CourseListPresenter.class.getSimpleName();
 
     private final CourseRepository mCourseRepository;
 
@@ -27,12 +31,14 @@ final class CourseListPresenter implements CourseListContract.Presenter {
         mCourseRepository.getCourses(new DataSource.GetCourseList() {
             @Override
             public void onCoursesFetched(List<Courses> coursesList) {
-
+                Log.d(TAG, "onCoursesFetched");
+                mCourseView.showCourses(coursesList);
             }
 
             @Override
             public void onFetchFailure() {
-
+                Log.w(TAG, "onFetchFailure");
+                mCourseView.showNoCourse();
             }
         });
     }
@@ -44,11 +50,12 @@ final class CourseListPresenter implements CourseListContract.Presenter {
 
     @Override
     public void takeView(CourseListContract.View view) {
-
+        this.mCourseView = view;
+        loadCouses();
     }
 
     @Override
     public void dropView() {
-
+        this.mCourseView = null;
     }
 }

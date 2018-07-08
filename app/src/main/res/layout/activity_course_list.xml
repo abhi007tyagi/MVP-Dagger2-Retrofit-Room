@@ -4,7 +4,7 @@
     android:id="@+id/contentFrame"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".courseList.CourseListActivity">
+    tools:context=".ui.courseList.CourseListActivity">
 
 
 </FrameLayout>

@@ -1,4 +1,4 @@
-package com.tyagiabhinav.udacitycourseviewer.courseList;
+package com.tyagiabhinav.udacitycourseviewer.ui.courseList;
 
 import com.tyagiabhinav.udacitycourseviewer.di.ActivityScope;
 import com.tyagiabhinav.udacitycourseviewer.di.FragmentScope;

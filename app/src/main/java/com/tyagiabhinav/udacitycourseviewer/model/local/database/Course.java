@@ -52,7 +52,9 @@ public class Course {
     /**
      * Use this constructor to create a new Course.
      */
-    public Course(@NonNull String mKey, @Nullable String mSummary, @Nullable String mExpectedDurationUnit, @Nullable String mBannerImage, @Nullable String mTitle, @Nullable String mLevel, @Nullable String mShortSummary, @Nullable String mExpectedDuration) {
+    public Course(@NonNull String mKey, @Nullable String mSummary, @Nullable String mExpectedDurationUnit,
+                  @Nullable String mBannerImage, @Nullable String mTitle, @Nullable String mLevel,
+                  @Nullable String mShortSummary, @Nullable String mExpectedDuration) {
         this.mKey = mKey;
         this.mSummary = mSummary;
         this.mExpectedDurationUnit = mExpectedDurationUnit;

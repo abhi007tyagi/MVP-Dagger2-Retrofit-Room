@@ -1,4 +1,4 @@
-package com.tyagiabhinav.udacitycourseviewer.courseList;
+package com.tyagiabhinav.udacitycourseviewer.ui.courseList;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

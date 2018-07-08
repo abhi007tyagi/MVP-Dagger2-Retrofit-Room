@@ -1,4 +1,4 @@
-package com.tyagiabhinav.udacitycourseviewer.courseList;
+package com.tyagiabhinav.udacitycourseviewer.ui.courseList;
 
 import com.tyagiabhinav.udacitycourseviewer.BasePresenter;
 import com.tyagiabhinav.udacitycourseviewer.BaseView;

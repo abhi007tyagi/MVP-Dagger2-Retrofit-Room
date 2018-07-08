@@ -19,7 +19,7 @@ import retrofit2.Response;
 @Singleton
 public class RemoteDataSource implements DataSource {
 
-    private final static String TAG = RemoteDataSource.class.getName();
+    private final static String TAG = RemoteDataSource.class.getSimpleName();
     private final RepoService service;
 
     @Inject
@@ -37,7 +37,8 @@ public class RemoteDataSource implements DataSource {
         service.getCourses().enqueue(new Callback<ApiResponse>() {
             @Override
             public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
-                Log.d(TAG, "onResponse: "+ response.body().toString());
+                Log.d(TAG, "onResponse: "+ response.body().getCourses().get(0).getTitle().toString());
+                callback.onCoursesFetched(response.body().getCourses());
             }
 
             @Override

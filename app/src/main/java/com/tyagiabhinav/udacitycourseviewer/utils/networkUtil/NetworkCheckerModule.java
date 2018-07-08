@@ -1,4 +1,4 @@
-package com.tyagiabhinav.udacitycourseviewer.utils;
+package com.tyagiabhinav.udacitycourseviewer.utils.networkUtil;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
