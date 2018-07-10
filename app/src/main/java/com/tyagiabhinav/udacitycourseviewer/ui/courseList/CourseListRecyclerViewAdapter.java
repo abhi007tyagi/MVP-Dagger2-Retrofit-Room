@@ -20,7 +20,7 @@ import butterknife.ButterKnife;
  * Created by abhinavtyagi on 14/02/17.
  */
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
+public class CourseListRecyclerViewAdapter extends RecyclerView.Adapter<CourseListRecyclerViewAdapter.ViewHolder> {
 
     private final List<Courses> mCourseList;
     private CourseListFragment.OnCourseSelectedListener mListener;
@@ -28,7 +28,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 //    @Inject
 //    public Picasso picasso;
 
-    public RecyclerViewAdapter(List<Courses> courses, CourseListFragment.OnCourseSelectedListener listener) {
+    public CourseListRecyclerViewAdapter(List<Courses> courses, CourseListFragment.OnCourseSelectedListener listener) {
         this.mCourseList = courses;
         this.mListener = listener;
     }
@@ -114,13 +114,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     class ViewHolder extends RecyclerView.ViewHolder {
         private final View mView;
 
-//        @BindView(R.id.banner)
-//        ImageView banner;
-
         @BindView(R.id.title)
         TextView title;
 
-        @BindView(R.id.shortSummary)
+        @BindView(R.id.summary)
         TextView shortSummary;
 
         @BindView(R.id.level)

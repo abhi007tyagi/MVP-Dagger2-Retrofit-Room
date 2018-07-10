@@ -8,7 +8,7 @@
     app:layoutManager="android.support.v7.widget.LinearLayoutManager"
     android:scrollbars="vertical"
     tools:listitem="@layout/course_list_content"
-    tools:context=".ui.courseList.CourseListFragment"></android.support.v7.widget.RecyclerView>
+    tools:context=".ui.courseList.CourseListFragment"/>
 
 
 

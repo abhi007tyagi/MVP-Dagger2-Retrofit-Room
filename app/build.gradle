@@ -38,7 +38,7 @@ dependencies {
     implementation "com.jakewharton:butterknife:$butterKnife"
     annotationProcessor "com.jakewharton:butterknife-compiler:$butterKnife"
 
-//    implementation "com.squareup.picasso:picasso:$picasso"
+    implementation "com.squareup.picasso:picasso:$picasso"
 
     implementation "com.google.dagger:dagger:$daggerVersion"
     implementation "com.google.dagger:dagger-android:$daggerVersion"

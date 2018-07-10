@@ -42,7 +42,7 @@ public class CourseListFragment extends DaggerFragment implements CourseListCont
     private Courses mSelectedCourse;
     private int mSelectedPosition = 0;
 
-    private RecyclerViewAdapter mRecyclerAdapter;
+    private CourseListRecyclerViewAdapter mRecyclerAdapter;
     private OnFragmentInteractionListener mFragmentInteractionListener;
 
     private OnCourseSelectedListener mListener = new OnCourseSelectedListener() {
@@ -63,7 +63,7 @@ public class CourseListFragment extends DaggerFragment implements CourseListCont
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mRecyclerAdapter = new RecyclerViewAdapter(new ArrayList<>(0), mListener);
+        mRecyclerAdapter = new CourseListRecyclerViewAdapter(new ArrayList<>(0), mListener);
         if (savedInstanceState != null) {
             mUseSavedState = true;
             mSelectedPosition = savedInstanceState.getInt(CourseListActivity.SELECTED_POSITION);
@@ -111,12 +111,12 @@ public class CourseListFragment extends DaggerFragment implements CourseListCont
         mRecyclerView.setHasFixedSize(true);
 
         // use linear layout manager for positioning of items in the list in list formation
-        final RecyclerView.LayoutManager restaurantLayoutManager = new LinearLayoutManager(getActivity());
-        mRecyclerView.setLayoutManager(restaurantLayoutManager);
+        final RecyclerView.LayoutManager courseLayoutManager = new LinearLayoutManager(getActivity());
+        mRecyclerView.setLayoutManager(courseLayoutManager);
         mRecyclerView.addItemDecoration(mDividerLine);
 
 
-        // TODO scrolling not working
+        // TODO scrollTOPosition not working
         mRecyclerView.scrollToPosition(mSelectedPosition);
         mPresenter.loadCourses(mUseSavedState);
 
@@ -149,7 +149,7 @@ public class CourseListFragment extends DaggerFragment implements CourseListCont
     public void showCourses(List<Courses> courseList) {
         if (mRecyclerView != null) {
             Log.d(TAG, "setupRecyclerView: ");
-            mRecyclerAdapter = new RecyclerViewAdapter(courseList, mListener);
+            mRecyclerAdapter = new CourseListRecyclerViewAdapter(courseList, mListener);
             mRecyclerView.setAdapter(mRecyclerAdapter);
             mRecyclerAdapter.notifyDataSetChanged();
         }

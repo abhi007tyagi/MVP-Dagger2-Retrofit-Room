@@ -1,11 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <include
+        android:id="@+id/courseInfo"
+        layout="@layout/course_list_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Course Details"/>
+        android:layout_alignParentTop="true" />
 
-</LinearLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/instructorsList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/courseInfo"
+        android:layout_alignParentBottom="true"
+        android:scrollbars="horizontal"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+        tools:context=".ui.courseList.CourseDetailFragment"
+        tools:listitem="@layout/instructor_info_content" />
+
+
+</RelativeLayout>
