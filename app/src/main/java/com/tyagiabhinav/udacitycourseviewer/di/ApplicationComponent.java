@@ -6,6 +6,7 @@ import com.tyagiabhinav.udacitycourseviewer.UdacityCourseViewer;
 import com.tyagiabhinav.udacitycourseviewer.model.CourseRepository;
 import com.tyagiabhinav.udacitycourseviewer.model.CourseRepositoryModule;
 import com.tyagiabhinav.udacitycourseviewer.model.remote.ServiceModule;
+import com.tyagiabhinav.udacitycourseviewer.utils.UiUtilModule;
 import com.tyagiabhinav.udacitycourseviewer.utils.networkUtil.NetworkCheckerModule;
 
 import javax.inject.Singleton;
@@ -21,6 +22,7 @@ import dagger.android.support.AndroidSupportInjectionModule;
         ApplicationModule.class,
         ActivityBindingModule.class,
         AndroidSupportInjectionModule.class,
+        UiUtilModule.class,
         ServiceModule.class,
         NetworkCheckerModule.class
 })

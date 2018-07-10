@@ -1,4 +1,4 @@
-package com.tyagiabhinav.udacitycourseviewer.utils;
+package com.tyagiabhinav.udacitycourseviewer.utils.uiUtil;
 
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;

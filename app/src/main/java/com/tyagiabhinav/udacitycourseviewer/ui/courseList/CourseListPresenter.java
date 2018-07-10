@@ -18,8 +18,8 @@ final class CourseListPresenter implements CourseListContract.Presenter {
     public static final String TAG = CourseListPresenter.class.getSimpleName();
 
     private final CourseRepository mCourseRepository;
-
     private CourseListContract.View mCourseView;
+
 
     @Inject
     CourseListPresenter(CourseRepository courseRepository) {

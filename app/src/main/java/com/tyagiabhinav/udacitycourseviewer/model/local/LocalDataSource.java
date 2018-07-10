@@ -45,19 +45,16 @@ public class LocalDataSource implements DataSource {
     @Override
     public void saveCourses(@NonNull final List<Courses> coursesList) {
 
-        Runnable saveRunnable = new Runnable() {
-            @Override
-            public void run() {
-                for (Courses courses : coursesList) {
-                    Map<String, Object> dbMap = DatabaseUtils.convertPojoToEntity(courses);
+        Runnable saveRunnable = () -> {
+            for (Courses courses : coursesList) {
+                Map<String, Object> dbMap = DatabaseUtils.convertPojoToEntity(courses);
 
-                    Course course = (Course) dbMap.get(DatabaseUtils.COURSE_KEY);
-                    mCourseDAO.insert(course);
+                Course course = (Course) dbMap.get(DatabaseUtils.COURSE_KEY);
+                mCourseDAO.insert(course);
 
-                    List<Instructor> instructors = (List<Instructor>) dbMap.get(DatabaseUtils.INSTRUCTOR_KEY);
-                    for (Instructor instructor : instructors) {
-                        mInstructorDAO.insert(instructor);
-                    }
+                List<Instructor> instructors = (List<Instructor>) dbMap.get(DatabaseUtils.INSTRUCTOR_KEY);
+                for (Instructor instructor : instructors) {
+                    mInstructorDAO.insert(instructor);
                 }
             }
         };
@@ -66,27 +63,24 @@ public class LocalDataSource implements DataSource {
 
     @Override
     public void getCourses(@NonNull final GetCourseList callback) {
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                final List<CourseList> listOfCourseList = mCourseListDAO.getCourses();
-                mAppExecutor.mainThread().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        List<Courses> coursesList = new ArrayList<>(listOfCourseList.size());
-                        for (CourseList courseList : listOfCourseList) {
-                          Course course = courseList.course;
-                          List<Instructor> instructors = courseList.instructors;
-                          Map<String, Object> dbMap = new HashMap<>(2);
-                          dbMap.put(DatabaseUtils.COURSE_KEY, course);
-                          dbMap.put(DatabaseUtils.INSTRUCTOR_KEY, instructors);
+        Runnable runnable = () -> {
+            final List<CourseList> listOfCourseList = mCourseListDAO.getCourses();
+            mAppExecutor.mainThread().execute(new Runnable() {
+                @Override
+                public void run() {
+                    List<Courses> coursesList = new ArrayList<>(listOfCourseList.size());
+                    for (CourseList courseList : listOfCourseList) {
+                      Course course = courseList.course;
+                      List<Instructor> instructors = courseList.instructors;
+                      Map<String, Object> dbMap = new HashMap<>(2);
+                      dbMap.put(DatabaseUtils.COURSE_KEY, course);
+                      dbMap.put(DatabaseUtils.INSTRUCTOR_KEY, instructors);
 
-                          coursesList.add(DatabaseUtils.convertEntityToPojo(dbMap));
-                        }
-                        callback.onCoursesFetched(coursesList);
+                      coursesList.add(DatabaseUtils.convertEntityToPojo(dbMap));
                     }
-                });
-            }
+                    callback.onCoursesFetched(coursesList);
+                }
+            });
         };
         mAppExecutor.diskIO().execute(runnable);
     }

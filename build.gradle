@@ -38,6 +38,8 @@ ext {
     // App dependencies
     supportLibraryVersion = '27.1.1'
     junitVersion = '4.12'
+    butterKnife = '8.8.1'
+    picasso = '2.71828'
     mockitoVersion = '1.10.19'
     powerMockito = '1.6.2'
     hamcrestVersion = '1.3'

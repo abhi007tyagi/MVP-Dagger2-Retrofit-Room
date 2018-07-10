@@ -34,18 +34,22 @@ public class RemoteDataSource implements DataSource {
 
     @Override
     public void getCourses(@NonNull final GetCourseList callback) {
-        service.getCourses().enqueue(new Callback<ApiResponse>() {
-            @Override
-            public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
-                Log.d(TAG, "onResponse: "+ response.body().getCourses().get(0).getTitle().toString());
-                callback.onCoursesFetched(response.body().getCourses());
-            }
+            service.getCourses().enqueue(new Callback<ApiResponse>() {
+                @Override
+                public void onResponse(@NonNull Call<ApiResponse> call, @NonNull Response<ApiResponse> response) {
+                    Log.d(TAG, "onResponse");
+                    if (response.body() != null) {
+                        callback.onCoursesFetched(response.body().getCourses());
+                    }else{
+                        callback.onFetchFailure();
+                    }
+                }
 
-            @Override
-            public void onFailure(Call<ApiResponse> call, Throwable t) {
-
-            }
-        });
+                @Override
+                public void onFailure(Call<ApiResponse> call, Throwable t) {
+                    callback.onFetchFailure();
+                }
+            });
     }
 
     @Override

@@ -14,7 +14,7 @@ public class UdacityCourseViewer extends DaggerApplication {
 
     @Override
     protected AndroidInjector<? extends DaggerApplication> applicationInjector() {
-        return DaggerApplicationComponent.builder().application(this).build(); //abbe spelling galt thi NAHI
+        return DaggerApplicationComponent.builder().application(this).build();
     }
 
 }

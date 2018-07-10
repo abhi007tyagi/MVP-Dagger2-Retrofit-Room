@@ -10,11 +10,11 @@ import dagger.Provides;
 
 
 @Module
-public class NetworkCheckerModule {
+public abstract class NetworkCheckerModule {
 
     @Provides
     @Singleton
-    public OnlineChecker onlineChecker(Context context) {
+    static OnlineChecker provideOnlineChecker(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
         return new OnlineChecker(connectivityManager);
     }
