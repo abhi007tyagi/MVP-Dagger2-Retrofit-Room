@@ -27,7 +27,7 @@ final class CourseListPresenter implements CourseListContract.Presenter {
     }
 
     @Override
-    public void loadCouses() {
+    public void loadCourses(boolean useSaved) {
         mCourseRepository.getCourses(new DataSource.GetCourseList() {
             @Override
             public void onCoursesFetched(List<Courses> coursesList) {
@@ -40,7 +40,7 @@ final class CourseListPresenter implements CourseListContract.Presenter {
                 Log.w(TAG, "onFetchFailure");
                 mCourseView.showNoCourse();
             }
-        });
+        }, useSaved);
     }
 
     @Override
@@ -49,9 +49,9 @@ final class CourseListPresenter implements CourseListContract.Presenter {
     }
 
     @Override
-    public void takeView(CourseListContract.View view) {
+    public void takeView(CourseListContract.View view, boolean useSavedState) {
         this.mCourseView = view;
-        loadCouses();
+        loadCourses(useSavedState);
     }
 
     @Override

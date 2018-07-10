@@ -25,8 +25,10 @@ public interface CourseListContract {
 
     interface Presenter extends BasePresenter<View> {
 
-        void loadCouses();
+        void loadCourses(boolean useSaved);
 
         void onCourseSelected(Courses selectedCourse);
+
+        void takeView(View view, boolean useSavedState);
     }
 }

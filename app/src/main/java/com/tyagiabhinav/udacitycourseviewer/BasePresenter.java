@@ -7,7 +7,7 @@ public interface BasePresenter<T> {
      *
      * @param view the view associated with this presenter
      */
-    void takeView(T view);
+    void takeView(T view, boolean useSavedState);
 
     /**
      * Drops the reference to the view when destroyed

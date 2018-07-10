@@ -13,6 +13,10 @@ public abstract class CourseListModule {
     @ContributesAndroidInjector
     abstract CourseListFragment courseListFragment();
 
+    @FragmentScope
+    @ContributesAndroidInjector
+    abstract CourseDetailFragment courseDetailFragment();
+
     @ActivityScope
     @Binds
     abstract CourseListContract.Presenter courseListPresenter(CourseListPresenter presenter);

@@ -1,12 +1,16 @@
 
 package com.tyagiabhinav.udacitycourseviewer.model.pojo;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class Courses {
+public class Courses implements Parcelable {
 
     @SerializedName("instructors")
     @Expose
@@ -306,4 +310,87 @@ public class Courses {
         this.expected_duration = expected_duration;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeList(this.instructors);
+        dest.writeString(this.subtitle);
+        dest.writeString(this.key);
+        dest.writeString(this.image);
+        dest.writeString(this.expected_learning);
+        dest.writeValue(this.featured);
+        dest.writeString(this.project_name);
+        dest.writeParcelable(this.teaser_video, flags);
+        dest.writeString(this.title);
+        dest.writeList(this.related_degree_keys);
+        dest.writeString(this.required_knowledge);
+        dest.writeString(this.syllabus);
+        dest.writeValue(this.new_release);
+        dest.writeString(this.homepage);
+        dest.writeString(this.project_description);
+        dest.writeValue(this.full_course_available);
+        dest.writeString(this.faq);
+        dest.writeList(this.affiliates);
+        dest.writeStringList(this.tracks);
+        dest.writeString(this.banner_image);
+        dest.writeString(this.short_summary);
+        dest.writeString(this.slug);
+        dest.writeValue(this.starter);
+        dest.writeString(this.level);
+        dest.writeString(this.expected_duration_unit);
+        dest.writeString(this.summary);
+        dest.writeValue(this.expected_duration);
+    }
+
+    public Courses() {
+    }
+
+    protected Courses(Parcel in) {
+        this.instructors = new ArrayList<Instructors>();
+        in.readList(this.instructors, Instructors.class.getClassLoader());
+        this.subtitle = in.readString();
+        this.key = in.readString();
+        this.image = in.readString();
+        this.expected_learning = in.readString();
+        this.featured = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        this.project_name = in.readString();
+        this.teaser_video = in.readParcelable(Teaser_video.class.getClassLoader());
+        this.title = in.readString();
+        this.related_degree_keys = new ArrayList<Object>();
+        in.readList(this.related_degree_keys, Object.class.getClassLoader());
+        this.required_knowledge = in.readString();
+        this.syllabus = in.readString();
+        this.new_release = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        this.homepage = in.readString();
+        this.project_description = in.readString();
+        this.full_course_available = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        this.faq = in.readString();
+        this.affiliates = new ArrayList<Affiliate>();
+        in.readList(this.affiliates, Affiliate.class.getClassLoader());
+        this.tracks = in.createStringArrayList();
+        this.banner_image = in.readString();
+        this.short_summary = in.readString();
+        this.slug = in.readString();
+        this.starter = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        this.level = in.readString();
+        this.expected_duration_unit = in.readString();
+        this.summary = in.readString();
+        this.expected_duration = (Integer) in.readValue(Integer.class.getClassLoader());
+    }
+
+    public static final Parcelable.Creator<Courses> CREATOR = new Parcelable.Creator<Courses>() {
+        @Override
+        public Courses createFromParcel(Parcel source) {
+            return new Courses(source);
+        }
+
+        @Override
+        public Courses[] newArray(int size) {
+            return new Courses[size];
+        }
+    };
 }

@@ -1,10 +1,13 @@
 
 package com.tyagiabhinav.udacitycourseviewer.model.pojo;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Instructors {
+public class Instructors implements Parcelable {
 
     @SerializedName("bio")
     @Expose
@@ -40,4 +43,36 @@ public class Instructors {
         this.name = name;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.bio);
+        dest.writeString(this.image);
+        dest.writeString(this.name);
+    }
+
+    public Instructors() {
+    }
+
+    protected Instructors(Parcel in) {
+        this.bio = in.readString();
+        this.image = in.readString();
+        this.name = in.readString();
+    }
+
+    public static final Parcelable.Creator<Instructors> CREATOR = new Parcelable.Creator<Instructors>() {
+        @Override
+        public Instructors createFromParcel(Parcel source) {
+            return new Instructors(source);
+        }
+
+        @Override
+        public Instructors[] newArray(int size) {
+            return new Instructors[size];
+        }
+    };
 }

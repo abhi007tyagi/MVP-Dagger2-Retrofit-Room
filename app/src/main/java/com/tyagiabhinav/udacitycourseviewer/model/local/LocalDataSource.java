@@ -62,7 +62,7 @@ public class LocalDataSource implements DataSource {
     }
 
     @Override
-    public void getCourses(@NonNull final GetCourseList callback) {
+    public void getCourses(@NonNull final GetCourseList callback, @NonNull boolean useSaved) {
         Runnable runnable = () -> {
             final List<CourseList> listOfCourseList = mCourseListDAO.getCourses();
             mAppExecutor.mainThread().execute(new Runnable() {
@@ -70,13 +70,13 @@ public class LocalDataSource implements DataSource {
                 public void run() {
                     List<Courses> coursesList = new ArrayList<>(listOfCourseList.size());
                     for (CourseList courseList : listOfCourseList) {
-                      Course course = courseList.course;
-                      List<Instructor> instructors = courseList.instructors;
-                      Map<String, Object> dbMap = new HashMap<>(2);
-                      dbMap.put(DatabaseUtils.COURSE_KEY, course);
-                      dbMap.put(DatabaseUtils.INSTRUCTOR_KEY, instructors);
+                        Course course = courseList.course;
+                        List<Instructor> instructors = courseList.instructors;
+                        Map<String, Object> dbMap = new HashMap<>(2);
+                        dbMap.put(DatabaseUtils.COURSE_KEY, course);
+                        dbMap.put(DatabaseUtils.INSTRUCTOR_KEY, instructors);
 
-                      coursesList.add(DatabaseUtils.convertEntityToPojo(dbMap));
+                        coursesList.add(DatabaseUtils.convertEntityToPojo(dbMap));
                     }
                     callback.onCoursesFetched(coursesList);
                 }

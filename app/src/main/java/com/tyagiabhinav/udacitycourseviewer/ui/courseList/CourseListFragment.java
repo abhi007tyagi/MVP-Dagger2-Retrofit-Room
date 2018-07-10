@@ -25,7 +25,7 @@ import butterknife.ButterKnife;
 import dagger.android.support.DaggerFragment;
 
 
-public class CourseListFragment extends DaggerFragment implements CourseListContract.View{
+public class CourseListFragment extends DaggerFragment implements CourseListContract.View {
 
     public static final String TAG = CourseListFragment.class.getSimpleName();
 
@@ -38,12 +38,18 @@ public class CourseListFragment extends DaggerFragment implements CourseListCont
     @BindView(R.id.courseList)
     RecyclerView mRecyclerView;
 
+    private boolean mUseSavedState = false;
+    private Courses mSelectedCourse;
+    private int mSelectedPosition = 0;
+
     private RecyclerViewAdapter mRecyclerAdapter;
     private OnFragmentInteractionListener mFragmentInteractionListener;
 
     private OnCourseSelectedListener mListener = new OnCourseSelectedListener() {
         @Override
-        public void onCouseSelected(Courses selectedCourse) {
+        public void onCouseSelected(Courses selectedCourse, int position) {
+            mSelectedCourse = selectedCourse;
+            mSelectedPosition = position;
             mFragmentInteractionListener.onFragmentInteraction(selectedCourse);
         }
     };
@@ -58,12 +64,16 @@ public class CourseListFragment extends DaggerFragment implements CourseListCont
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mRecyclerAdapter = new RecyclerViewAdapter(new ArrayList<>(0), mListener);
+        if (savedInstanceState != null) {
+            mUseSavedState = true;
+            mSelectedPosition = savedInstanceState.getInt(CourseListActivity.SELECTED_POSITION);
+        }
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        mPresenter.takeView(this);
+        mPresenter.takeView(this, mUseSavedState);
     }
 
     @Override
@@ -105,10 +115,29 @@ public class CourseListFragment extends DaggerFragment implements CourseListCont
         mRecyclerView.setLayoutManager(restaurantLayoutManager);
         mRecyclerView.addItemDecoration(mDividerLine);
 
-        mPresenter.loadCouses();
+
+        // TODO scrolling not working
+        mRecyclerView.scrollToPosition(mSelectedPosition);
+        mPresenter.loadCourses(mUseSavedState);
 
         return view;
 
+    }
+
+    @Override
+    public void onSaveInstanceState(final Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(CourseListActivity.SELECTED_COURSE, mSelectedCourse);
+        outState.putInt(CourseListActivity.SELECTED_POSITION, mSelectedPosition);
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        if (savedInstanceState != null) {
+            mSelectedCourse = savedInstanceState.getParcelable(CourseListActivity.SELECTED_COURSE);
+            mSelectedPosition = savedInstanceState.getInt(CourseListActivity.SELECTED_POSITION);
+        }
     }
 
     @Override
@@ -140,7 +169,7 @@ public class CourseListFragment extends DaggerFragment implements CourseListCont
     }
 
     public interface OnCourseSelectedListener {
-        void onCouseSelected(Courses course);
+        void onCouseSelected(Courses course, int position);
     }
 
     public interface OnFragmentInteractionListener {

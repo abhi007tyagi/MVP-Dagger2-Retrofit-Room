@@ -19,11 +19,17 @@ public class CourseListActivity extends DaggerAppCompatActivity implements Cours
 
     public static final String TAG = CourseListActivity.class.getSimpleName();
 
+    public static final String SELECTED_COURSE = "selectedCourse";
+    public static final String SELECTED_POSITION = "selectedPosition";
+
     @Inject
     CourseListPresenter mCourseListPresenter;
 
     @Inject
     Lazy<CourseListFragment> mCourseListFragmentProvider;
+
+    @Inject
+    Lazy<CourseDetailFragment> mCourseDetailFragmentProvider;
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -57,6 +63,14 @@ public class CourseListActivity extends DaggerAppCompatActivity implements Cours
 
     @Override
     public void onFragmentInteraction(Courses selectedCourse) {
-        Log.d(TAG, "onFragmentInteraction: "+selectedCourse.getTitle());
+        Log.d(TAG, "onFragmentInteraction: " + selectedCourse.getTitle());
+        // Get the fragment from dagger
+        CourseDetailFragment courseDetailFragment = mCourseDetailFragmentProvider.get();
+
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(SELECTED_COURSE, selectedCourse);
+        courseDetailFragment.setArguments(bundle);
+
+        ActivityUtils.replaceFragmentInActivity(getSupportFragmentManager(), courseDetailFragment, R.id.contentFrame);
     }
 }

@@ -78,8 +78,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 courses.getExpected_duration(), courses.getExpected_duration_unit()));
 
 
-        // grid item click listener
-        holder.mView.setOnClickListener((v) -> handleOnClickListener(v, holder));
+        // item click listener
+        holder.mView.setOnClickListener((v) -> handleOnClickListener(v, holder, position));
     }
 
     @Override
@@ -87,9 +87,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return mCourseList.size();
     }
 
-    private void handleOnClickListener(View v, ViewHolder holder) {
+    private void handleOnClickListener(View v, ViewHolder holder, int position) {
 
-        mListener.onCouseSelected(holder.mItem);
+        mListener.onCouseSelected(holder.mItem, position);
+
+
 
 //        Bundle arguments = new Bundle();
 //        arguments.putParcelable(Constants.SELECTED_RESTAURANT, holder.mItem);
