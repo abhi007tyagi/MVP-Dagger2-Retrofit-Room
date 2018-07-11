@@ -24,7 +24,7 @@ import javax.inject.Singleton;
 @Singleton
 public class LocalDataSource implements DataSource {
 
-    public static final String TAG = LocalDataSource.class.getName();
+    public static final String TAG = LocalDataSource.class.getSimpleName();
 
     private final CourseDAO mCourseDAO;
     private final InstructorDAO mInstructorDAO;
@@ -62,7 +62,7 @@ public class LocalDataSource implements DataSource {
     }
 
     @Override
-    public void getCourses(@NonNull final GetCourseList callback, @NonNull boolean useSaved) {
+    public void getCourses(@NonNull final GetCourseList callback) {
         Runnable runnable = () -> {
             final List<CourseList> listOfCourseList = mCourseListDAO.getCourses();
             mAppExecutor.mainThread().execute(new Runnable() {

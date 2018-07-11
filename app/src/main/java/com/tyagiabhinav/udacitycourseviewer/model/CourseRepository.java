@@ -14,7 +14,7 @@ import javax.inject.Singleton;
 @Singleton
 public class CourseRepository implements DataSource {
 
-    public static final String TAG = CourseRepository.class.getName();
+    public static final String TAG = CourseRepository.class.getSimpleName();
 
     private final DataSource mRemoteDataSource;
     private final DataSource mLocalDataSource;
@@ -36,9 +36,9 @@ public class CourseRepository implements DataSource {
     }
 
     @Override
-    public void getCourses(@NonNull final GetCourseList callback, @NonNull boolean useSaved) {
+    public void getCourses(@NonNull final GetCourseList callback) {
 
-        if (onlineChecker.isOnline() && !useSaved) {
+        if (onlineChecker.isOnline()) {
             // fetch cources from remote server
             mRemoteDataSource.getCourses(new GetCourseList() {
                 @Override
@@ -53,7 +53,7 @@ public class CourseRepository implements DataSource {
                     // fetch from local database
                     getCoursesFromDatabase(callback);
                 }
-            },false);
+            });
         } else {
             // offline... get from local database
             getCoursesFromDatabase(callback);
@@ -78,6 +78,6 @@ public class CourseRepository implements DataSource {
                 // show No Data message
                 callback.onFetchFailure();
             }
-        }, true);
+        });
     }
 }

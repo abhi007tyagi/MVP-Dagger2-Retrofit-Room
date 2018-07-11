@@ -1,27 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/courseDetails"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".ui.courseDetails.CourseDetailFragment">
 
-    <include
-        android:id="@+id/courseInfo"
-        layout="@layout/course_list_content"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true" />
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/instructorsList"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/courseInfo"
-        android:layout_alignParentBottom="true"
-        android:scrollbars="horizontal"
-        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-        tools:context=".ui.courseList.CourseDetailFragment"
-        tools:listitem="@layout/instructor_info_content" />
-
-
-</RelativeLayout>
+    <include layout="@layout/course_details" />
+</FrameLayout>

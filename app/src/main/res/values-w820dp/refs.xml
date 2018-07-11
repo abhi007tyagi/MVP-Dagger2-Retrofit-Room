@@ -1,0 +1,7 @@
+<resources>
+    <!--
+    Layout alias to replace the single-pane version of the layout with a
+    two-pane version on screens with a width of at least 820 density-independent pixels (dips).
+    -->
+    <item name="course_list" type="layout">@layout/course_info_two_pane</item>
+</resources>

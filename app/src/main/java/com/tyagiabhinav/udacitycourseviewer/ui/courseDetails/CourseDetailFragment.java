@@ -1,4 +1,4 @@
-package com.tyagiabhinav.udacitycourseviewer.ui.courseList;
+package com.tyagiabhinav.udacitycourseviewer.ui.courseDetails;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,10 +14,9 @@ import android.widget.TextView;
 
 import com.tyagiabhinav.udacitycourseviewer.R;
 import com.tyagiabhinav.udacitycourseviewer.model.pojo.Courses;
+import com.tyagiabhinav.udacitycourseviewer.utils.uiUtil.Constants;
 import com.tyagiabhinav.udacitycourseviewer.utils.uiUtil.DividerLine;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 import javax.inject.Inject;
@@ -27,15 +26,9 @@ import butterknife.ButterKnife;
 import dagger.android.support.DaggerFragment;
 
 
-public class CourseDetailFragment extends DaggerFragment implements CourseListContract.View {
+public class CourseDetailFragment extends DaggerFragment {
 
-    public static final String TAG = CourseListFragment.class.getSimpleName();
-
-    private boolean mUseSavedState = false;
-    private Courses mSelectedCourse;
-
-    @Inject
-    CourseListContract.Presenter mPresenter;
+    public static final String TAG = CourseDetailFragment.class.getSimpleName();
 
     @Inject
     DividerLine mDividerLine;
@@ -57,38 +50,36 @@ public class CourseDetailFragment extends DaggerFragment implements CourseListCo
     @BindView(R.id.duration)
     TextView duration;
 
-    @BindView(R.id.instructorsList)
+    @BindView(R.id.instructorsListRecyclerView)
     RecyclerView mRecyclerView;
 
     private InstructorInfoRecyclerViewAdapter mRecyclerAdapter;
-
+    private Courses mSelectedCourse;
+    private boolean mTwoPane;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mRecyclerAdapter = new InstructorInfoRecyclerViewAdapter(new ArrayList<>(0));
-
-        if (getArguments() != null) {
-            mSelectedCourse = getArguments().getParcelable(CourseListActivity.SELECTED_COURSE);
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        Log.d(TAG, "onActivityCreated");
+        super.onActivityCreated(savedInstanceState);
+        if (savedInstanceState != null) {
+            mSelectedCourse = savedInstanceState.getParcelable(Constants.SELECTED_COURSE);
         }
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        mPresenter.takeView(this, mUseSavedState);
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        Log.d(TAG, "onCreate");
+        super.onCreate(savedInstanceState);
+        // get arguments passed from activity
+        if (getArguments().containsKey(Constants.SELECTED_COURSE)) {
+            mSelectedCourse = getArguments().getParcelable(Constants.SELECTED_COURSE);
+            mTwoPane = getArguments().getBoolean(Constants.TWO_PANE);
+        }
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        mPresenter.dropView();  //prevent leaking activity in
-        // case presenter is orchestrating a long running task
-    }
-
-    @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Log.d(TAG, "onCreateView");
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_course_details, container, false);
 
@@ -114,51 +105,25 @@ public class CourseDetailFragment extends DaggerFragment implements CourseListCo
         mRecyclerView.setLayoutManager(instructorLayoutManager);
         mRecyclerView.addItemDecoration(mDividerLine);
 
+        if (mSelectedCourse.getInstructors().size() < 1) {
+//            Snackbar.make(mRecyclerView, getString(R.string.no_course_found), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+        }
+
         if (mRecyclerView != null) {
             Log.d(TAG, "setupRecyclerView: ");
             mRecyclerAdapter = new InstructorInfoRecyclerViewAdapter(mSelectedCourse.getInstructors());
             mRecyclerView.setAdapter(mRecyclerAdapter);
             mRecyclerAdapter.notifyDataSetChanged();
         }
-        if (mSelectedCourse.getInstructors().size() < 1) {
-//            Snackbar.make(mRecyclerView, getString(R.string.no_course_found), Snackbar.LENGTH_LONG).setAction("Action", null).show();
-        }
 
         return view;
-
     }
 
-    @Override
-    public void onSaveInstanceState(final Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putParcelable(CourseListActivity.SELECTED_COURSE, mSelectedCourse);
-    }
-
-    @Override
-    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
-        super.onViewStateRestored(savedInstanceState);
-        if (savedInstanceState != null) {
-            mSelectedCourse = savedInstanceState.getParcelable(CourseListActivity.SELECTED_COURSE);
-        }
-    }
-
-    @Override
-    public void setLoadingIndicator(boolean active) {
-
-    }
-
-    @Override
-    public void showCourses(List<Courses> courseList) {
-    }
-
-    @Override
-    public void showLoadingCourseError() {
-
-    }
-
-    @Override
-    public void showNoCourse() {
-
-    }
+//    @Override
+//    public void onSaveInstanceState(final Bundle outState) {
+//        Log.d(TAG, "onSaveInstanceState");
+//        super.onSaveInstanceState(outState);
+//        outState.putParcelable(Constants.SELECTED_COURSE, mSelectedCourse);
+//    }
 
 }

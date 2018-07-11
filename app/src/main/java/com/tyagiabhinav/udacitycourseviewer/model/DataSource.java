@@ -26,7 +26,7 @@ public interface DataSource {
 
     void saveCourses(@NonNull List<Courses> coursesList);
 
-    void getCourses(@NonNull GetCourseList callback, @NonNull boolean useSaved);
+    void getCourses(@NonNull GetCourseList callback);
 
     void getCourse(@NonNull String key, @NonNull GetCourse callback);
 

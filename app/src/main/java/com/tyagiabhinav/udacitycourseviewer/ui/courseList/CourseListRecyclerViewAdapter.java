@@ -23,19 +23,18 @@ import butterknife.ButterKnife;
 public class CourseListRecyclerViewAdapter extends RecyclerView.Adapter<CourseListRecyclerViewAdapter.ViewHolder> {
 
     private final List<Courses> mCourseList;
-    private CourseListFragment.OnCourseSelectedListener mListener;
+    private CourseListActivity.OnCourseSelectedListener mListener;
 
 //    @Inject
 //    public Picasso picasso;
 
-    public CourseListRecyclerViewAdapter(List<Courses> courses, CourseListFragment.OnCourseSelectedListener listener) {
+    public CourseListRecyclerViewAdapter(List<Courses> courses, CourseListActivity.OnCourseSelectedListener listener) {
         this.mCourseList = courses;
         this.mListener = listener;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.course_list_content, parent, false);
         return new ViewHolder(view);
     }

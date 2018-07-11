@@ -1,21 +1,13 @@
 package com.tyagiabhinav.udacitycourseviewer.ui.courseList;
 
 import com.tyagiabhinav.udacitycourseviewer.di.ActivityScope;
-import com.tyagiabhinav.udacitycourseviewer.di.FragmentScope;
+import com.tyagiabhinav.udacitycourseviewer.ui.courseDetails.CourseDetailModule;
 
 import dagger.Binds;
 import dagger.Module;
-import dagger.android.ContributesAndroidInjector;
 
-@Module
+@Module(includes = CourseDetailModule.class)
 public abstract class CourseListModule {
-    @FragmentScope
-    @ContributesAndroidInjector
-    abstract CourseListFragment courseListFragment();
-
-    @FragmentScope
-    @ContributesAndroidInjector
-    abstract CourseDetailFragment courseDetailFragment();
 
     @ActivityScope
     @Binds

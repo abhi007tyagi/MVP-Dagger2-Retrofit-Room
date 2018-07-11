@@ -1,4 +1,4 @@
-package com.tyagiabhinav.udacitycourseviewer.ui.courseList;
+package com.tyagiabhinav.udacitycourseviewer.ui.courseDetails;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

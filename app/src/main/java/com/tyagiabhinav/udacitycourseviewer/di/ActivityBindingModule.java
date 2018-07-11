@@ -1,5 +1,7 @@
 package com.tyagiabhinav.udacitycourseviewer.di;
 
+import com.tyagiabhinav.udacitycourseviewer.ui.courseDetails.CourseDetailActivity;
+import com.tyagiabhinav.udacitycourseviewer.ui.courseDetails.CourseDetailModule;
 import com.tyagiabhinav.udacitycourseviewer.ui.courseList.CourseListActivity;
 import com.tyagiabhinav.udacitycourseviewer.ui.courseList.CourseListModule;
 
@@ -12,7 +14,7 @@ public abstract class ActivityBindingModule {
     @ContributesAndroidInjector(modules = CourseListModule.class)
     abstract CourseListActivity courseListActivity();
 
-//    @ActivityScope
-//    @ContributesAndroidInjector(modules = CourseDetailModule.class)
-//    abstract CourseDetailActivity courseDetailActivity();
+    @ActivityScope
+    @ContributesAndroidInjector(modules = CourseDetailModule.class)
+    abstract CourseDetailActivity courseDetailActivity();
 }

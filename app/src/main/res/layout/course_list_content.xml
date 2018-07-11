@@ -42,22 +42,18 @@
             android:textSize="14sp" />
     </LinearLayout>
 
-    <ScrollView
+
+    <TextView
+        android:id="@+id/summary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/infoLayout">
-
-        <TextView
-            android:id="@+id/summary"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:ellipsize="end"
-            android:gravity="start|center_vertical"
-            android:text="Short summary"
-            android:textSize="12sp"
-            android:textStyle="italic" />
-    </ScrollView>
+        android:layout_below="@+id/infoLayout"
+        android:layout_marginTop="8dp"
+        android:ellipsize="end"
+        android:gravity="start|center_vertical"
+        android:text="Short summary"
+        android:textSize="12sp"
+        android:textStyle="italic" />
 
 
 </RelativeLayout>
