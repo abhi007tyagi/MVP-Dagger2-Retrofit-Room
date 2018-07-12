@@ -32,7 +32,6 @@
             android:layout_alignParentBottom="true"
             android:layout_below="@+id/instructorHeading"
             android:layout_centerHorizontal="true"
-            android:fitsSystemWindows="true"
             tools:listitem="@layout/instructor_info_content"/>
         <!--<android.support.v7.widget.RecyclerView-->
         <!--android:id="@+id/instructorsListRecyclerView"-->
