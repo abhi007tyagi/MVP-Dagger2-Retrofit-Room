@@ -19,8 +19,10 @@ public abstract class DatabaseModule {
 
     @Provides
     @Singleton
-    static CourseDatabase provideDatabase(Context context){
-        return Room.databaseBuilder(context, CourseDatabase.class, "udacity_courses.db").build();
+    static CourseDatabase provideDatabase(Context context) {
+        return Room.databaseBuilder(context, CourseDatabase.class, "udacity_courses.db")
+                .fallbackToDestructiveMigration()
+                .build();
     }
 
     @Singleton

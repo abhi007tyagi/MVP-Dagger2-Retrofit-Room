@@ -14,7 +14,7 @@ import java.util.UUID;
  * Immutable model class for a Instructors.
  */
 
-@Entity(tableName = "instructors")
+@Entity(tableName = "instructors")// , primaryKeys = {"courseId", "name"}
 public class Instructor {
 
     @NonNull
@@ -25,7 +25,7 @@ public class Instructor {
     @ColumnInfo(name = "bio")
     private final String mBio;
 
-    @Nullable
+    @NonNull
     @ColumnInfo(name = "name")
     private final String mName;
 

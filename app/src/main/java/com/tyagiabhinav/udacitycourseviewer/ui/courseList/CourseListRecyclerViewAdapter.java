@@ -1,5 +1,6 @@
 package com.tyagiabhinav.udacitycourseviewer.ui.courseList;
 
+import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -70,12 +71,12 @@ public class CourseListRecyclerViewAdapter extends RecyclerView.Adapter<CourseLi
 //                    .into(holder.banner);
 //        }
 
-        holder.title.setText(courses.getTitle());
-        holder.shortSummary.setText(courses.getShort_summary());
-        holder.level.setText(courses.getLevel());
-        holder.duration.setText(String.format(Locale.getDefault(),"%d %s",
+        Resources resources = holder.itemView.getResources();
+        holder.title.setText((courses.getTitle().trim().isEmpty()) ? resources.getString(R.string.no_title_msg) : courses.getTitle());
+        holder.shortSummary.setText((courses.getShort_summary().trim().isEmpty()) ? resources.getString(R.string.no_summary_msg) : courses.getShort_summary());
+        holder.level.setText((courses.getLevel().trim().isEmpty()) ? resources.getString(R.string.no_level_msg) : courses.getLevel());
+        holder.duration.setText((courses.getExpected_duration() == 0 && courses.getExpected_duration_unit().trim().isEmpty()) ? resources.getString(R.string.no_duration_msg) : String.format(Locale.getDefault(), "%d %s",
                 courses.getExpected_duration(), courses.getExpected_duration_unit()));
-
 
         // item click listener
         holder.mView.setOnClickListener((v) -> handleOnClickListener(v, holder, position));
@@ -89,7 +90,6 @@ public class CourseListRecyclerViewAdapter extends RecyclerView.Adapter<CourseLi
     private void handleOnClickListener(View v, ViewHolder holder, int position) {
 
         mListener.onCouseSelected(holder.mItem, position);
-
 
 
 //        Bundle arguments = new Bundle();

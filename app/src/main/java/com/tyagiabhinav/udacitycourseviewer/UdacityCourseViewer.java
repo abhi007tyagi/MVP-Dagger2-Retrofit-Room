@@ -1,5 +1,6 @@
 package com.tyagiabhinav.udacitycourseviewer;
 
+import com.squareup.leakcanary.LeakCanary;
 import com.tyagiabhinav.udacitycourseviewer.di.DaggerApplicationComponent;
 import com.tyagiabhinav.udacitycourseviewer.model.CourseRepository;
 
@@ -17,4 +18,14 @@ public class UdacityCourseViewer extends DaggerApplication {
         return DaggerApplicationComponent.builder().application(this).build();
     }
 
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            // This process is dedicated to LeakCanary for heap analysis.
+            // You should not init your app in this process.
+            return;
+        }
+        LeakCanary.install(this);
+    }
 }

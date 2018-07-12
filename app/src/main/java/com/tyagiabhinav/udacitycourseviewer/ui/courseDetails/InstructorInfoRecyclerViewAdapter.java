@@ -1,5 +1,6 @@
 package com.tyagiabhinav.udacitycourseviewer.ui.courseDetails;
 
+import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -54,13 +55,13 @@ public class InstructorInfoRecyclerViewAdapter extends RecyclerView.Adapter<Inst
 //        }
 
 
-
-        holder.name.setText(instructors.getName());
-        holder.bio.setText(instructors.getBio());
+        Resources resources = holder.itemView.getResources();
+        holder.name.setText((instructors.getName().trim().isEmpty()) ? resources.getString(R.string.no_name_msg) : instructors.getName());
+        holder.bio.setText((instructors.getBio().trim().isEmpty()) ? resources.getString(R.string.no_bio_msg) : instructors.getBio());
         String imageUrl = instructors.getImage();
 
         // bind ui views with data
-        if(!imageUrl.trim().isEmpty()) {
+        if (!imageUrl.trim().isEmpty()) {
             Picasso.get()
                     .load(imageUrl)
                     .placeholder(R.drawable.ic_person_black_24dp)

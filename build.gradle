@@ -54,6 +54,7 @@ ext {
     gsonConverterVersion = '2.1.0'
     autoValueVersion = '1.5.1'
     autoValueGsonVersion = '0.8.0'
+    leakCanary = '1.5.4'
 }
 
 

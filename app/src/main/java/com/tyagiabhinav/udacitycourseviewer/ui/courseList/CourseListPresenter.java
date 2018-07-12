@@ -28,6 +28,7 @@ final class CourseListPresenter implements CourseListContract.Presenter {
 
     @Override
     public void loadCourses() {
+        mCourseView.setLoadingIndicator(true);
         mCourseRepository.getCourses(new DataSource.GetCourseList() {
             @Override
             public void onCoursesFetched(List<Courses> coursesList) {
@@ -35,12 +36,14 @@ final class CourseListPresenter implements CourseListContract.Presenter {
                 Log.d(TAG, "onCoursesFetched: " + coursesList.get(0).getTitle());
                 Log.d(TAG, "onCoursesFetched: " + mCourseView);
                 mCourseView.showCourses(coursesList);
+                mCourseView.setLoadingIndicator(false);
             }
 
             @Override
             public void onFetchFailure() {
                 Log.w(TAG, "onFetchFailure");
                 mCourseView.showNoCourse();
+                mCourseView.setLoadingIndicator(false);
             }
         });
     }

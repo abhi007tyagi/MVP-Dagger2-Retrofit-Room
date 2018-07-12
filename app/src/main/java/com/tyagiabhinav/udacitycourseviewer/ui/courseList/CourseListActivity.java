@@ -7,6 +7,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.tyagiabhinav.udacitycourseviewer.R;
 import com.tyagiabhinav.udacitycourseviewer.model.pojo.Courses;
@@ -40,10 +42,13 @@ public class CourseListActivity extends DaggerAppCompatActivity implements Cours
     Lazy<CourseDetailFragment> mCourseDetailFragmentProvider;
 
     @BindView(R.id.toolbar)
-    Toolbar toolbar;
+    Toolbar mToolbar;
 
     @BindView(R.id.courseListRecyclerView)
     RecyclerView mRecyclerView;
+
+    @BindView(R.id.progressBar)
+    ProgressBar mProgressBar;
 
     private boolean mTwoPane = false;
     private List<Courses> mStateSavedList;
@@ -93,8 +98,8 @@ public class CourseListActivity extends DaggerAppCompatActivity implements Cours
 
         ButterKnife.bind(this);
 
-        setSupportActionBar(toolbar);
-        toolbar.setTitle(getTitle());
+        setSupportActionBar(mToolbar);
+        mToolbar.setTitle(getTitle());
 
         // to improve performance as changes in content do not change the layout size of the RecyclerView
         mRecyclerView.setHasFixedSize(true);
@@ -103,6 +108,8 @@ public class CourseListActivity extends DaggerAppCompatActivity implements Cours
         final RecyclerView.LayoutManager courseLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(courseLayoutManager);
         mRecyclerView.addItemDecoration(mDividerLine);
+
+        mCourseListPresenter.takeView(this);
 
         if (savedInstanceState != null) {
             Log.d(TAG, "onCreate: using saved state list");
@@ -193,7 +200,11 @@ public class CourseListActivity extends DaggerAppCompatActivity implements Cours
 
     @Override
     public void setLoadingIndicator(boolean active) {
-
+        if (active) {
+            mProgressBar.setVisibility(View.VISIBLE);
+        } else {
+            mProgressBar.setVisibility(View.INVISIBLE);
+        }
     }
 
     @Override

@@ -2,7 +2,15 @@
     <string name="app_name">UdacityCourseViewer</string>
     <string name="title_activity_course_detail">CourseDetailActivity</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="no_course_found">No course found</string>
+    <string name="no_title_msg">Title not available</string>
+    <string name="no_summary_msg">Summary not available</string>
+    <string name="no_level_msg">Difficulty level not available</string>
+    <string name="no_duration_msg">Duration not available</string>
+
+    <string name="no_name_msg">Name not available</string>
+    <string name="no_bio_msg">Bio not available</string>
+    <string name="no_course_instructors_msg">No instructor for this course</string>
+
+    <string name="course_instructors">Course Instructors</string>
 </resources>

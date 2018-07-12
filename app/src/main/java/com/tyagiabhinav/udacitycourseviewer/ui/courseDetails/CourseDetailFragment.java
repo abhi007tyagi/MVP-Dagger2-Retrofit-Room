@@ -2,14 +2,14 @@ package com.tyagiabhinav.udacitycourseviewer.ui.courseDetails;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.v4.view.ViewPager;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.tyagiabhinav.udacitycourseviewer.R;
@@ -26,7 +26,7 @@ import butterknife.ButterKnife;
 import dagger.android.support.DaggerFragment;
 
 
-public class CourseDetailFragment extends DaggerFragment {
+public class CourseDetailFragment extends DaggerFragment implements ViewPager.OnPageChangeListener{
 
     public static final String TAG = CourseDetailFragment.class.getSimpleName();
 
@@ -50,12 +50,24 @@ public class CourseDetailFragment extends DaggerFragment {
     @BindView(R.id.duration)
     TextView duration;
 
-    @BindView(R.id.instructorsListRecyclerView)
-    RecyclerView mRecyclerView;
+    @BindView(R.id.instructorHeading)
+    TextView instructorHeading;
+
+//    @BindView(R.id.dotIndicatorLayout)
+//    LinearLayout dotIndicatorLayout;
+
+//    @BindView(R.id.instructorsListRecyclerView)
+//    RecyclerView mRecyclerView;
+
+    @BindView(R.id.instructorsPager)
+    ViewPager mInstructorsPager;
 
     private InstructorInfoRecyclerViewAdapter mRecyclerAdapter;
     private Courses mSelectedCourse;
     private boolean mTwoPane;
+    private ImageView[] dots;
+    private int dotsCount;
+    private InstructorViewPagerAdapter mAdapter;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -85,45 +97,59 @@ public class CourseDetailFragment extends DaggerFragment {
 
         ButterKnife.bind(this, view);
 
-        title.setText(mSelectedCourse.getTitle());
-        level.setText(mSelectedCourse.getLevel());
-        duration.setText(String.format(Locale.getDefault(),"%d %s",
+        title.setText((mSelectedCourse.getTitle().trim().isEmpty()) ? getString(R.string.no_title_msg) : mSelectedCourse.getTitle());
+        level.setText((mSelectedCourse.getLevel().trim().isEmpty()) ? getString(R.string.no_level_msg) : mSelectedCourse.getLevel());
+        duration.setText((mSelectedCourse.getExpected_duration() == 0 && mSelectedCourse.getExpected_duration_unit().trim().isEmpty()) ? getString(R.string.no_duration_msg) : String.format(Locale.getDefault(), "%d %s",
                 mSelectedCourse.getExpected_duration(), mSelectedCourse.getExpected_duration_unit()));
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-            summary.setText(Html.fromHtml(mSelectedCourse.getSummary(),Html.FROM_HTML_MODE_LEGACY));
+            summary.setText((mSelectedCourse.getSummary().trim().isEmpty()) ? getString(R.string.no_summary_msg) : Html.fromHtml(mSelectedCourse.getSummary(), Html.FROM_HTML_MODE_LEGACY));
         } else {
-            summary.setText(Html.fromHtml(mSelectedCourse.getSummary()));
+            summary.setText((mSelectedCourse.getSummary().trim().isEmpty()) ? getString(R.string.no_summary_msg) : Html.fromHtml(mSelectedCourse.getSummary()));
         }
         summary.setMovementMethod(LinkMovementMethod.getInstance());
 
-        // to improve performance as changes in content do not change the layout size of the RecyclerView
-        mRecyclerView.setHasFixedSize(true);
-
-        // use linear layout manager for positioning of items in the list in list formation
-        final RecyclerView.LayoutManager instructorLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
-        mRecyclerView.setLayoutManager(instructorLayoutManager);
-        mRecyclerView.addItemDecoration(mDividerLine);
-
-        if (mSelectedCourse.getInstructors().size() < 1) {
-//            Snackbar.make(mRecyclerView, getString(R.string.no_course_found), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+        if(mSelectedCourse.getInstructors().size() > 0 ){
+            mAdapter = new InstructorViewPagerAdapter(getActivity(), mSelectedCourse.getInstructors());
+            mInstructorsPager.setAdapter(mAdapter);
+//            mInstructorsPager.setCurrentItem(0);
+//            mInstructorsPager.setOnPageChangeListener(this);
         }
 
-        if (mRecyclerView != null) {
-            Log.d(TAG, "setupRecyclerView: ");
-            mRecyclerAdapter = new InstructorInfoRecyclerViewAdapter(mSelectedCourse.getInstructors());
-            mRecyclerView.setAdapter(mRecyclerAdapter);
-            mRecyclerAdapter.notifyDataSetChanged();
-        }
+//        // to improve performance as changes in content do not change the layout size of the RecyclerView
+//        mRecyclerView.setHasFixedSize(true);
+//
+//        // use linear layout manager for positioning of items in the list in list formation
+//        final RecyclerView.LayoutManager instructorLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+//        mRecyclerView.setLayoutManager(instructorLayoutManager);
+//        mRecyclerView.addItemDecoration(mDividerLine);
+//
+//        if (mSelectedCourse.getInstructors().size() < 1) {
+//            instructorHeading.setText(getString(R.string.no_course_instructors_msg));
+//        }
+//
+//        if (mRecyclerView != null) {
+//            Log.d(TAG, "setupRecyclerView: ");
+//            mRecyclerAdapter = new InstructorInfoRecyclerViewAdapter(mSelectedCourse.getInstructors());
+//            mRecyclerView.setAdapter(mRecyclerAdapter);
+//            mRecyclerAdapter.notifyDataSetChanged();
+//        }
 
         return view;
     }
 
-//    @Override
-//    public void onSaveInstanceState(final Bundle outState) {
-//        Log.d(TAG, "onSaveInstanceState");
-//        super.onSaveInstanceState(outState);
-//        outState.putParcelable(Constants.SELECTED_COURSE, mSelectedCourse);
-//    }
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
+    }
 }
