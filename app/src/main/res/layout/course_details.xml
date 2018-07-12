@@ -1,50 +1,44 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?><!--<ScrollView --><!--android:layout_width="match_parent"--><!--android:layout_height="wrap_content">-->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-    <RelativeLayout
+    <include
+        android:id="@+id/courseInfo"
+        layout="@layout/course_list_content"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content" />
 
-        <include
-            android:id="@+id/courseInfo"
-            layout="@layout/course_list_content"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true" />
-
-        <TextView
-            android:id="@+id/instructorHeading"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/courseInfo"
-            android:layout_margin="16dp"
-            android:text="@string/course_instructors"
-            android:textSize="14sp" />
+    <TextView
+        android:id="@+id/instructorHeading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="@string/course_instructors"
+        android:textSize="14sp" />
 
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/instructorsPager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentBottom="true"
-            android:layout_below="@+id/instructorHeading"
-            android:layout_centerHorizontal="true"
-            tools:listitem="@layout/instructor_info_content"/>
-        <!--<android.support.v7.widget.RecyclerView-->
-        <!--android:id="@+id/instructorsListRecyclerView"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--android:layout_below="@+id/instructorHeading"-->
-        <!--android:scrollbars="horizontal"-->
-        <!--app:layoutManager="android.support.v7.widget.LinearLayoutManager"-->
-        <!--tools:context=".ui.courseDetails.CourseDetailFragment"-->
-        <!--tools:listitem="@layout/instructor_info_content" />-->
+    <android.support.v4.view.ViewPager
+        android:id="@+id/instructorsPager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".ui.courseDetails.CourseDetailFragment"
+        tools:listitem="@layout/instructor_info_content" />
+    <!--<android.support.v7.widget.RecyclerView-->
+    <!--android:id="@+id/instructorsListRecyclerView"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--android:layout_below="@+id/instructorHeading"-->
+    <!--android:scrollbars="horizontal"-->
+    <!--app:layoutManager="android.support.v7.widget.LinearLayoutManager"-->
+    <!--tools:context=".ui.courseDetails.CourseDetailFragment"-->
+    <!--tools:listitem="@layout/instructor_info_content" />-->
 
-    </RelativeLayout>
+</LinearLayout>
 
 
-</ScrollView>
+    <!--</ScrollView>-->
