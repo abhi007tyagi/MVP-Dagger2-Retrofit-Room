@@ -32,18 +32,18 @@ public class CourseRepository implements DataSource {
 
     @Override
     public void saveCourses(@NonNull List<Courses> coursesList) {
-            mLocalDataSource.saveCourses(coursesList);
+        mLocalDataSource.saveCourses(coursesList);
     }
 
     @Override
-    public void getCourses(@NonNull final GetCourseList callback) {
+    public void getCourses(@NonNull boolean fromDB, @NonNull final GetCourseList callback) {
 
-        if (onlineChecker.isOnline()) {
+        if (onlineChecker.isOnline() && !fromDB) {
             // fetch cources from remote server
-            mRemoteDataSource.getCourses(new GetCourseList() {
+            mRemoteDataSource.getCourses(fromDB, new GetCourseList() {
                 @Override
                 public void onCoursesFetched(List<Courses> coursesList) {
-                    Log.d(TAG, "onCoursesFetched: "+coursesList.toString());
+                    Log.d(TAG, "onCoursesFetched: " + coursesList.toString());
                     saveCourses(coursesList);
                     callback.onCoursesFetched(coursesList);
                 }
@@ -51,12 +51,12 @@ public class CourseRepository implements DataSource {
                 @Override
                 public void onFetchFailure() {
                     // fetch from local database
-                    getCoursesFromDatabase(callback);
+                    getCoursesFromDatabase(fromDB, callback);
                 }
             });
         } else {
             // offline... get from local database
-            getCoursesFromDatabase(callback);
+            getCoursesFromDatabase(fromDB, callback);
         }
 
     }
@@ -66,8 +66,8 @@ public class CourseRepository implements DataSource {
 
     }
 
-    private void getCoursesFromDatabase(@NonNull final GetCourseList callback) {
-        mLocalDataSource.getCourses(new GetCourseList() {
+    private void getCoursesFromDatabase(@NonNull boolean fromDB, @NonNull final GetCourseList callback) {
+        mLocalDataSource.getCourses(fromDB, new GetCourseList() {
             @Override
             public void onCoursesFetched(List<Courses> coursesList) {
                 callback.onCoursesFetched(coursesList);

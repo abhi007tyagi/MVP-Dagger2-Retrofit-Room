@@ -1,15 +1,16 @@
 package com.tyagiabhinav.udacitycourseviewer.ui.courseList;
 
+import com.tyagiabhinav.udacitycourseviewer.TestUtils;
 import com.tyagiabhinav.udacitycourseviewer.model.CourseRepository;
 import com.tyagiabhinav.udacitycourseviewer.model.DataSource;
 import com.tyagiabhinav.udacitycourseviewer.model.pojo.ApiResponse;
 import com.tyagiabhinav.udacitycourseviewer.model.pojo.Courses;
-import com.tyagiabhinav.udacitycourseviewer.TestUtils;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
+import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -58,9 +59,9 @@ public class CourseListPresenterTest {
     @Test
     public void loadCourses() {
 
-        mCourseListPresenter.loadCourses();
+        mCourseListPresenter.loadCourses(Matchers.eq(false));
 
-        verify(mCourseRepository, times(1)).getCourses(mGetCourseListCaptor.capture());
+        verify(mCourseRepository, times(1)).getCourses(Matchers.eq(false), mGetCourseListCaptor.capture());
         mGetCourseListCaptor.getValue().onCoursesFetched(COURSES);
 
         // Then progress indicator is shown

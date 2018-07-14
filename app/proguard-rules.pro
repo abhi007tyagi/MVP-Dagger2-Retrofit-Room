@@ -43,10 +43,13 @@
 # OkHttp platform used only on JVM and when Conscrypt dependency is available.
 -dontwarn okhttp3.internal.platform.ConscryptPlatform
 
+# for warning while shrinking
+-ignorewarnings
 
 # -- Testing rules --
 
--ignorewarnings
+
+
 
 -keepattributes *Annotation*
 
@@ -60,4 +63,5 @@
 -dontwarn com.squareup.javawriter.JavaWriter
 # Uncomment this if you use Mockito
 -dontwarn org.mockito.**
+# Uncomment this if testing for RecyclerView
 -keepclasseswithmembers public class android.support.v7.widget.RecyclerView { *; }

@@ -33,7 +33,7 @@ public class RemoteDataSource implements DataSource {
     }
 
     @Override
-    public void getCourses(@NonNull final GetCourseList callback) {
+    public void getCourses(@NonNull boolean fromDB, @NonNull final GetCourseList callback) {
             service.getCourses().enqueue(new Callback<ApiResponse>() {
                 @Override
                 public void onResponse(@NonNull Call<ApiResponse> call, @NonNull Response<ApiResponse> response) {

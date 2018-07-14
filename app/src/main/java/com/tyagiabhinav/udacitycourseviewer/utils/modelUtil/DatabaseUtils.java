@@ -20,7 +20,7 @@ public class DatabaseUtils {
     public static Map<String, Object> convertPojoToEntity(@NonNull Courses courses) {
 
         Course course = new Course(courses.getKey(),courses.getSummary(),
-                courses.getExpected_duration_unit(), courses.getBanner_image(),courses.getTitle(),
+                courses.getExpected_duration_unit(),courses.getTitle(),
                 courses.getLevel(), courses.getShort_summary(),String.valueOf(courses.getExpected_duration()));
 
         List<Instructors> instructorsList = courses.getInstructors();
@@ -46,7 +46,6 @@ public class DatabaseUtils {
         courses.setKey(course.getKey());
         courses.setSummary(course.getSummary());
         courses.setExpected_duration_unit(course.getExpectedDurationUnit());
-        courses.setBanner_image(course.getBannerImage());
         courses.setTitle(course.getTitle());
         courses.setLevel(course.getLevel());
         courses.setShort_summary(course.getShortSummary());

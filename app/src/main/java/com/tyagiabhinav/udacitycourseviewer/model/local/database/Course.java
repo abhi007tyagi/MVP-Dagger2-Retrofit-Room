@@ -29,10 +29,6 @@ public class Course {
     private final String mExpectedDurationUnit;
 
     @Nullable
-    @ColumnInfo(name = "banner_image")
-    private final String mBannerImage;
-
-    @Nullable
     @ColumnInfo(name = "title")
     private final String mTitle;
 
@@ -53,12 +49,11 @@ public class Course {
      * Use this constructor to create a new Course.
      */
     public Course(@NonNull String mKey, @Nullable String mSummary, @Nullable String mExpectedDurationUnit,
-                  @Nullable String mBannerImage, @Nullable String mTitle, @Nullable String mLevel,
+                  @Nullable String mTitle, @Nullable String mLevel,
                   @Nullable String mShortSummary, @Nullable String mExpectedDuration) {
         this.mKey = mKey;
         this.mSummary = mSummary;
         this.mExpectedDurationUnit = mExpectedDurationUnit;
-        this.mBannerImage = mBannerImage;
         this.mTitle = mTitle;
         this.mLevel = mLevel;
         this.mShortSummary = mShortSummary;
@@ -78,11 +73,6 @@ public class Course {
     @Nullable
     public String getExpectedDurationUnit() {
         return mExpectedDurationUnit;
-    }
-
-    @Nullable
-    public String getBannerImage() {
-        return mBannerImage;
     }
 
     @Nullable

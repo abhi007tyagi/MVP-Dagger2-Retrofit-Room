@@ -11,12 +11,6 @@ public class ApiResponse {
     @SerializedName("courses")
     @Expose
     private List<Courses> courses = null;
-    @SerializedName("tracks")
-    @Expose
-    private List<Track> tracks = null;
-    @SerializedName("degrees")
-    @Expose
-    private List<Degree> degrees = null;
 
     public List<Courses> getCourses() {
         return courses;
@@ -25,21 +19,4 @@ public class ApiResponse {
     public void setCourses(List<Courses> courses) {
         this.courses = courses;
     }
-
-    public List<Track> getTracks() {
-        return tracks;
-    }
-
-    public void setTracks(List<Track> tracks) {
-        this.tracks = tracks;
-    }
-
-    public List<Degree> getDegrees() {
-        return degrees;
-    }
-
-    public void setDegrees(List<Degree> degrees) {
-        this.degrees = degrees;
-    }
-
 }

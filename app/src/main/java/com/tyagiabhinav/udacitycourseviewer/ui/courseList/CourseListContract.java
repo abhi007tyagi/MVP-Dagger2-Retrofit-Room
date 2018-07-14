@@ -29,7 +29,7 @@ public interface CourseListContract {
 
     interface Presenter extends BasePresenter<View> {
 
-        void loadCourses();
+        void loadCourses(boolean fromDB);
 
         void onCourseSelected(Courses selectedCourse, int position);
 

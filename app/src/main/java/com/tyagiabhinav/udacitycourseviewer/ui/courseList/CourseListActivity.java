@@ -19,7 +19,6 @@ import com.tyagiabhinav.udacitycourseviewer.utils.uiUtil.ActivityUtils;
 import com.tyagiabhinav.udacitycourseviewer.utils.uiUtil.Constants;
 import com.tyagiabhinav.udacitycourseviewer.utils.uiUtil.DividerLine;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -55,8 +54,6 @@ public class CourseListActivity extends DaggerAppCompatActivity implements Cours
     TextView mNoCourseFound;
 
     private boolean mTwoPane = false;
-    private List<Courses> mStateSavedList;
-    private CourseListRecyclerViewAdapter mRecyclerAdapter;
 
     private boolean isActive = false;
 
@@ -94,12 +91,9 @@ public class CourseListActivity extends DaggerAppCompatActivity implements Cours
 
 //        mIdlingResource.increment();
         if (savedInstanceState != null) {
-            Log.d(TAG, "onCreate: using saved state list");
-            mStateSavedList = savedInstanceState.getParcelableArrayList(Constants.COURSE_LIST);
-            showCourses(mStateSavedList);
+            mCourseListPresenter.loadCourses(savedInstanceState.getBoolean(Constants.SAVE_COURSE_LIST));
         } else {
-            Log.d(TAG, "onCreate: fresh load");
-            mCourseListPresenter.loadCourses();
+            mCourseListPresenter.loadCourses(false);
         }
     }
 
@@ -125,7 +119,7 @@ public class CourseListActivity extends DaggerAppCompatActivity implements Cours
     protected void onSaveInstanceState(Bundle outState) {
         Log.d(TAG, "onSaveInstanceState");
         super.onSaveInstanceState(outState);
-        outState.putParcelableArrayList(Constants.COURSE_LIST, new ArrayList<>(mStateSavedList));
+        outState.putBoolean(Constants.SAVE_COURSE_LIST, true);
     }
 
     @Override
@@ -146,8 +140,7 @@ public class CourseListActivity extends DaggerAppCompatActivity implements Cours
             Snackbar.make(mRecyclerView, getString(R.string.no_course_found), Snackbar.LENGTH_LONG).setAction("Action", null).show();
         } else if (mRecyclerView != null) {
             mNoCourseFound.setVisibility(View.INVISIBLE);
-            mStateSavedList = courseList;
-            mRecyclerAdapter = new CourseListRecyclerViewAdapter(courseList, mCourseListPresenter);
+            CourseListRecyclerViewAdapter mRecyclerAdapter = new CourseListRecyclerViewAdapter(courseList, mCourseListPresenter);
             mRecyclerView.setAdapter(mRecyclerAdapter);
             mRecyclerAdapter.notifyDataSetChanged();
         }

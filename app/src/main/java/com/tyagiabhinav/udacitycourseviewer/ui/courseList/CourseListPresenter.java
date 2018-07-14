@@ -1,6 +1,7 @@
 package com.tyagiabhinav.udacitycourseviewer.ui.courseList;
 
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.tyagiabhinav.udacitycourseviewer.di.ActivityScope;
@@ -15,7 +16,7 @@ import javax.inject.Inject;
 @ActivityScope
 final class CourseListPresenter implements CourseListContract.Presenter {
 
-    public static final String TAG = CourseListPresenter.class.getSimpleName();
+    private static final String TAG = CourseListPresenter.class.getSimpleName();
 
     private final CourseRepository mCourseRepository;
     private CourseListContract.View mCourseView;
@@ -27,29 +28,29 @@ final class CourseListPresenter implements CourseListContract.Presenter {
     }
 
     @Override
-    public void loadCourses() {
+    public void loadCourses(@NonNull boolean fromDB) {
         mCourseView.setLoadingIndicator(true);
 
-        mCourseRepository.getCourses(new DataSource.GetCourseList() {
+        mCourseRepository.getCourses(fromDB, new DataSource.GetCourseList() {
             @Override
             public void onCoursesFetched(List<Courses> coursesList) {
-                if(coursesList.size()>0) {
+                if (coursesList.size() > 0) {
                     Log.d(TAG, "onCoursesFetched");
-                    Log.d(TAG, "onCoursesFetched: " + coursesList.get(0).getTitle());
-                    Log.d(TAG, "onCoursesFetched: " + mCourseView);
-
                     mCourseView.showCourses(coursesList);
-                    mCourseView.setLoadingIndicator(false);
-                }else{
+                } else if (fromDB) {
                     mCourseView.showCourseLoadError();
-                    mCourseView.setLoadingIndicator(false);
                 }
+                mCourseView.setLoadingIndicator(false);
             }
 
             @Override
             public void onFetchFailure() {
                 Log.w(TAG, "onFetchFailure");
-                mCourseView.showNoCourse();
+                if (fromDB) {
+                    mCourseView.showCourseLoadError();
+                } else {
+                    mCourseView.showNoCourse();
+                }
                 mCourseView.setLoadingIndicator(false);
             }
         });
@@ -63,7 +64,6 @@ final class CourseListPresenter implements CourseListContract.Presenter {
     @Override
     public void takeView(CourseListContract.View view) {
         this.mCourseView = view;
-//        loadCourses();
     }
 
     @Override

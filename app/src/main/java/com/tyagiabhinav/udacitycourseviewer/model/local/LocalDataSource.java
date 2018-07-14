@@ -62,7 +62,7 @@ public class LocalDataSource implements DataSource {
     }
 
     @Override
-    public void getCourses(@NonNull final GetCourseList callback) {
+    public void getCourses(@NonNull boolean fromDB, @NonNull final GetCourseList callback) {
         Runnable runnable = () -> {
             final List<CourseList> listOfCourseList = mCourseListDAO.getCourses();
             mAppExecutor.mainThread().execute(new Runnable() {

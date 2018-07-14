@@ -22,11 +22,10 @@ public interface DataSource {
         void onFetchFailure();
     }
 
-//    List<Courses> extractCourses (ApiResponse apiResponse);
 
     void saveCourses(@NonNull List<Courses> coursesList);
 
-    void getCourses(@NonNull GetCourseList callback);
+    void getCourses(@NonNull boolean fromDB, @NonNull GetCourseList callback);
 
     void getCourse(@NonNull String key, @NonNull GetCourse callback);
 

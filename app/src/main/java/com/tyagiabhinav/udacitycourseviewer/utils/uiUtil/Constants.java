@@ -1,6 +1,7 @@
 package com.tyagiabhinav.udacitycourseviewer.utils.uiUtil;
 
 public class Constants {
+    public static final String SAVE_COURSE_LIST = "saveCourseList";
     public static final String COURSE_LIST = "courseList";
     public static final String SELECTED_COURSE = "selectedCourse";
     public static final String SELECTED_POSITION = "selectedPosition";
