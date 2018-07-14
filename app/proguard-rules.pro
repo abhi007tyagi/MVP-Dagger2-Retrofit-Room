@@ -47,10 +47,7 @@
 -ignorewarnings
 
 # -- Testing rules --
-
-
-
-
+# Uncomment below lines for testing
 -keepattributes *Annotation*
 
 -dontnote junit.framework.**

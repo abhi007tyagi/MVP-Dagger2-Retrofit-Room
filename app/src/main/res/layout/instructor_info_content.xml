@@ -4,14 +4,19 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center">
 
+    <!--added inside frame to give card like effect-->
+
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:background="#F9F9F9"
-        android:elevation="8dp"
+        android:layout_marginBottom="@dimen/margin_x_large"
+        android:layout_marginEnd="@dimen/margin_x_large"
+        android:layout_marginStart="@dimen/margin_x_large"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:background="@color/elevationWhiteBG"
+        android:elevation="@dimen/elevation"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="@dimen/margin_medium">
 
         <ImageView
             android:id="@+id/profilePic"
@@ -19,7 +24,8 @@
             android:layout_height="130dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:padding="2dp"
+            android:contentDescription="@string/profilePicDescription"
+            android:padding="@dimen/margin_x_small"
             android:scaleType="fitXY"
             android:src="@drawable/ic_person_black_24dp" />
 
@@ -27,18 +33,17 @@
             android:id="@+id/instructorName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="@dimen/margin_x_large"
             android:layout_toEndOf="@+id/profilePic"
             android:gravity="start|center_vertical"
-            android:text="Instructor Name"
-            android:textSize="18sp"
+            android:textSize="@dimen/title_text_size"
             android:textStyle="bold" />
 
         <android.support.v4.widget.NestedScrollView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_below="@+id/profilePic"
-            android:layout_marginTop="8dp">
+            android:layout_marginTop="@dimen/margin_medium">
 
             <TextView
                 android:id="@+id/bio"
@@ -46,8 +51,7 @@
                 android:layout_height="match_parent"
                 android:layout_alignParentStart="true"
                 android:gravity="start|top"
-                android:text="Bio of the instructor"
-                android:textSize="14sp" />
+                android:textSize="@dimen/para_text_size" />
         </android.support.v4.widget.NestedScrollView>
 
     </RelativeLayout>

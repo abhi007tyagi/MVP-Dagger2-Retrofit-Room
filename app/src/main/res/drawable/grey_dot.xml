@@ -2,9 +2,9 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="oval">
 
-    <solid android:color="#272727" />
+    <solid android:color="@color/greyDot" />
 
     <size
-        android:width="16dp"
-        android:height="16dp" />
+        android:width="@dimen/dot_size"
+        android:height="@dimen/dot_size" />
 </shape>

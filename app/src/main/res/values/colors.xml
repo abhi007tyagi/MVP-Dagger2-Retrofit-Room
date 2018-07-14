@@ -3,4 +3,7 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="elevationWhiteBG">#F9F9F9</color>
+    <color name="greyDot">#727272</color>
+    <color name="whiteDot">#C7C7C7</color>
 </resources>

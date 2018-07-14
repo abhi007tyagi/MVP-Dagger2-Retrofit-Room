@@ -73,7 +73,7 @@ public class TestUdacityCourseViewerUI {
     }
 
     /**
-     * Test activity items visibility on launch of app
+     * Test activity rotation
      */
     @Test
     public void test02_RotateDeviceToLandscape() {
@@ -98,10 +98,14 @@ public class TestUdacityCourseViewerUI {
             // rotate back
             onView(isRoot()).perform(orientationPortrait());
 
+            // added for slowing the test for humans to see
             sleep(2000);
         }
     }
 
+    /**
+     * Test to scroll the list and select an item
+     */
     @Test
     public void test03_ScrollAndSelectItem() {
 
@@ -115,6 +119,9 @@ public class TestUdacityCourseViewerUI {
 
     }
 
+    /**
+     * Test fields visibility
+     */
     private void test04_UIViewListItemPresenceOnLoad() {
 
         // checks if title is present
@@ -133,6 +140,9 @@ public class TestUdacityCourseViewerUI {
         test05_UIViewInstructorsPresenceOnLoad();
     }
 
+    /**
+     * Test view pager items and scrolling
+     */
     private void test05_UIViewInstructorsPresenceOnLoad() {
 
         // checks if pager is present
@@ -150,11 +160,13 @@ public class TestUdacityCourseViewerUI {
         // swipe left
         onView(withId(R.id.instructorsPager)).perform(swipeLeft());
 
+        // added for slowing the test for humans to see
         sleep(2000);
 
         // swipe left
         onView(withId(R.id.instructorsPager)).perform(swipeRight());
 
+        // added for slowing the test for humans to see
         sleep(2000);
     }
 

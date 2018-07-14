@@ -7,6 +7,13 @@ import android.support.v4.app.FragmentTransaction;
 
 public class ActivityUtils {
 
+    /**
+     * adds fragments to activity
+     *
+     * @param fragmentManager
+     * @param fragment
+     * @param frameId
+     */
     public static void addFragmentToActivity(@NonNull FragmentManager fragmentManager,
                                              @NonNull Fragment fragment, int frameId) {
         FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -14,6 +21,13 @@ public class ActivityUtils {
         transaction.commit();
     }
 
+    /**
+     * replaces fragments in an activity
+     *
+     * @param fragmentManager
+     * @param fragment
+     * @param frameId
+     */
     public static void replaceFragmentInActivity(@NonNull FragmentManager fragmentManager,
                                              @NonNull Fragment fragment, int frameId) {
         FragmentTransaction transaction = fragmentManager.beginTransaction();

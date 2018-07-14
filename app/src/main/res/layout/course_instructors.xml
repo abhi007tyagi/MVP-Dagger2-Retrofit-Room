@@ -9,21 +9,19 @@
         android:id="@+id/instructorHeading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="@dimen/margin_x_large"
         android:text="@string/course_instructors"
-        android:textSize="14sp" />
+        android:textSize="@dimen/line_info_text_size" />
 
     <LinearLayout
         android:id="@+id/pageIndicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginBottom="4dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginBottom="@dimen/margin_x_small"
+        android:layout_marginEnd="@dimen/margin_x_large"
+        android:layout_marginStart="@dimen/margin_x_large"
+        android:layout_marginTop="@dimen/margin_small"
         android:orientation="horizontal" />
 
 
@@ -31,9 +29,8 @@
         android:id="@+id/instructorsPager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginEnd="@dimen/margin_x_large"
+        android:layout_marginStart="@dimen/margin_x_large"
         tools:context=".ui.courseDetails.CourseDetailFragment"
         tools:listitem="@layout/instructor_info_content" />
 

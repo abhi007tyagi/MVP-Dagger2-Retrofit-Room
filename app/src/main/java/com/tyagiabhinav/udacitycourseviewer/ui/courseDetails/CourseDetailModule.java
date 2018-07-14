@@ -8,13 +8,7 @@ import dagger.android.ContributesAndroidInjector;
 @Module
 public abstract class CourseDetailModule {
 
-
     @FragmentScope
     @ContributesAndroidInjector
     abstract CourseDetailFragment courseDetailFragment();
-
-//        @ActivityScope
-//        @Binds
-//        abstract CourseListContract.Presenter courseListPresenter(CourseListPresenter presenter);
-
 }

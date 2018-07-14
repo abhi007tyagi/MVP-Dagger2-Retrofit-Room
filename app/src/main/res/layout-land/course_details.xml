@@ -1,7 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!--<ScrollView --><!--android:layout_width="match_parent"--><!--android:layout_height="wrap_content">-->
-
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
@@ -18,54 +16,7 @@
         android:id="@+id/courseInstructors"
         layout="@layout/course_instructors"
         android:layout_width="0dp"
-        android:layout_weight="8"
-        android:layout_height="match_parent" />
-
-
-    <!--<LinearLayout-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:layout_weight="8"-->
-        <!--android:orientation="vertical">-->
-
-
-
-        <!--<TextView-->
-            <!--android:id="@+id/instructorHeading"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginBottom="4dp"-->
-            <!--android:layout_marginStart="16dp"-->
-            <!--android:layout_marginTop="16dp"-->
-            <!--android:text="@string/course_instructors"-->
-            <!--android:textSize="14sp" />-->
-
-        <!--<LinearLayout-->
-            <!--android:id="@+id/pageIndicator"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_gravity="center"-->
-            <!--android:layout_marginBottom="4dp"-->
-            <!--android:layout_marginEnd="16dp"-->
-            <!--android:layout_marginStart="16dp"-->
-            <!--android:layout_marginTop="4dp"-->
-            <!--android:orientation="horizontal" />-->
-
-
-        <!--<android.support.v4.view.ViewPager-->
-            <!--android:id="@+id/instructorsPager"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginBottom="4dp"-->
-            <!--android:layout_marginEnd="16dp"-->
-            <!--android:layout_marginStart="16dp"-->
-            <!--android:layout_marginTop="4dp"-->
-            <!--tools:context=".ui.courseDetails.CourseDetailFragment"-->
-            <!--tools:listitem="@layout/instructor_info_content" />-->
-    <!--</LinearLayout>-->
-
-
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/margin_x_large"
+        android:layout_weight="8" />
 </LinearLayout>
-
-
-    <!--</ScrollView>-->

@@ -1,0 +1,17 @@
+<resources>
+
+    <dimen name="margin_x_large">28dp</dimen>
+    <dimen name="margin_large">24dp</dimen>
+    <dimen name="margin_medium">20dp</dimen>
+    <dimen name="margin_small">16dp</dimen>
+    <dimen name="margin_x_small">10dp</dimen>
+
+    <dimen name="title_text_size">28sp</dimen>
+    <dimen name="line_info_text_size">24sp</dimen>
+    <dimen name="para_text_size">20sp</dimen>
+
+    <dimen name="image_width">124dp</dimen>
+    <dimen name="image_height">140dp</dimen>
+
+    <dimen name="dot_size">18dp</dimen>
+</resources>

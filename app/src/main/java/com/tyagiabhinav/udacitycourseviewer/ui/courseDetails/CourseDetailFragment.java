@@ -57,9 +57,6 @@ public class CourseDetailFragment extends DaggerFragment implements ViewPager.On
     @BindView(R.id.pageIndicator)
     LinearLayout mPagerIndicator;
 
-//    @BindView(R.id.instructorsListRecyclerView)
-//    RecyclerView mRecyclerView;
-
     @BindView(R.id.instructorsPager)
     ViewPager mInstructorsPager;
 

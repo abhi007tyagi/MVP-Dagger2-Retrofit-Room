@@ -57,8 +57,6 @@ public class CourseListActivity extends DaggerAppCompatActivity implements Cours
 
     private boolean isActive = false;
 
-//    private CountingIdlingResource mIdlingResource = new CountingIdlingResource("Data_Loader");
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "onCreate");
@@ -66,10 +64,6 @@ public class CourseListActivity extends DaggerAppCompatActivity implements Cours
         setContentView(R.layout.activity_course_list);
 
         if (findViewById(R.id.course_detail_container) != null) {
-            // The detail container view will be present only in the
-            // large-screen layouts (res/values-w820dp).
-            // If this view is present, then the
-            // activity should be in two-pane mode.
             mTwoPane = true;
             Log.d(TAG, "onCreate: This is TWO PANE *********************");
         }
@@ -89,7 +83,6 @@ public class CourseListActivity extends DaggerAppCompatActivity implements Cours
 
         mCourseListPresenter.takeView(this);
 
-//        mIdlingResource.increment();
         if (savedInstanceState != null) {
             mCourseListPresenter.loadCourses(savedInstanceState.getBoolean(Constants.SAVE_COURSE_LIST));
         } else {
@@ -102,7 +95,7 @@ public class CourseListActivity extends DaggerAppCompatActivity implements Cours
         Log.d(TAG, "onResume");
         super.onResume();
         mCourseListPresenter.takeView(this);
-        isActive = true;
+        isActive = true; // used by unit test
     }
 
 
@@ -110,9 +103,8 @@ public class CourseListActivity extends DaggerAppCompatActivity implements Cours
     public void onDestroy() {
         Log.d(TAG, "onDestroy");
         super.onDestroy();
-        mCourseListPresenter.dropView();  //prevent leaking activity in
-        // case presenter is orchestrating a long running task
-        isActive = false;
+        mCourseListPresenter.dropView();  //prevent leaking activity in case presenter is orchestrating a long running task
+        isActive = false; // used by unit test
     }
 
     @Override
@@ -134,7 +126,6 @@ public class CourseListActivity extends DaggerAppCompatActivity implements Cours
     @Override
     public void showCourses(List<Courses> courseList) {
         Log.d(TAG, "showCourses");
-//        mIdlingResource.decrement();
         if (courseList.size() < 1) {
             mNoCourseFound.setVisibility(View.VISIBLE);
             Snackbar.make(mRecyclerView, getString(R.string.no_course_found), Snackbar.LENGTH_LONG).setAction("Action", null).show();
@@ -181,7 +172,4 @@ public class CourseListActivity extends DaggerAppCompatActivity implements Cours
         return isActive;
     }
 
-//    public IdlingResource getIdlingResource() {
-//        return mIdlingResource;
-//    }
 }
