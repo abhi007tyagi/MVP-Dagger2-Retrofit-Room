@@ -27,5 +27,10 @@ public class UdacityCourseViewer extends DaggerApplication {
             return;
         }
         LeakCanary.install(this);
+
+        // set crash handler
+//        CrashHandler.init(this)
+//                .showStackTraceReport(true)
+//                .emailTo("tyagiabhinav@yahoo.co.in");
     }
 }

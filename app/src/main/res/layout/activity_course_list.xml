@@ -35,6 +35,16 @@
             android:layout_gravity="center"
             android:visibility="invisible" />
 
+        <TextView
+            android:id="@+id/noCourseAvailable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/no_course_found"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:visibility="invisible" />
+
         <include layout="@layout/course_list" />
 
     </FrameLayout>

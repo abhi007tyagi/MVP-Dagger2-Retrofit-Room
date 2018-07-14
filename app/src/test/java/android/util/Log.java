@@ -1,5 +1,6 @@
 package android.util;
 
+// added to avoid use of Power Mockito.
 public class Log {
     public static int d(String tag, String msg) {
         System.out.println("DEBUG: " + tag + ": " + msg);

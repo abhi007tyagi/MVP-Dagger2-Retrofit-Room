@@ -53,11 +53,5 @@ public class RemoteDataSource implements DataSource {
     }
 
     @Override
-    public void getCourse(@NonNull String key, @NonNull GetCourse callback) {
-
-    }
-
-    private List<Courses> extractCourses(ApiResponse apiResponse) {
-        return null;
-    }
+    public void getCourse(@NonNull String key, @NonNull GetCourse callback) {}
 }

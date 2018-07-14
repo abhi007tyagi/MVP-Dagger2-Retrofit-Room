@@ -14,10 +14,12 @@ android {
     buildTypes {
         release {
             minifyEnabled true
+            useProguard true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
             minifyEnabled true
+            useProguard false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -25,22 +27,29 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+//    // Always show the result of every unit test, even if it passes.
+//    testOptions.unitTests.all {
+//        testLogging {
+//            events 'passed', 'skipped', 'failed', 'standardOut', 'standardError'
+//        }
+//    }
 }
 
 dependencies {
     implementation "com.android.support:appcompat-v7:$supportLibraryVersion"
     implementation "com.android.support:design:$supportLibraryVersion"
-
     implementation "android.arch.persistence.room:runtime:$roomVersion"
-    implementation 'com.android.support:support-v4:27.1.1'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+    implementation "com.android.support:support-v4:$supportLibraryVersion"
     annotationProcessor "android.arch.persistence.room:compiler:$roomVersion"
+    implementation "com.google.guava:guava:$guavaVersion"
 
     implementation "com.jakewharton:butterknife:$butterKnife"
     annotationProcessor "com.jakewharton:butterknife-compiler:$butterKnife"
 
     implementation "com.squareup.picasso:picasso:$picasso"
 
+    // Dependencies for DI using Dagger2
     implementation "com.google.dagger:dagger:$daggerVersion"
     implementation "com.google.dagger:dagger-android:$daggerVersion"
     implementation "com.google.dagger:dagger-android-support:$daggerVersion"
@@ -48,27 +57,36 @@ dependencies {
     annotationProcessor "com.google.dagger:dagger-android-processor:$daggerVersion"
     compileOnly 'org.glassfish:javax.annotation:10.0-b28'
 
-    debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakCanary"
-    releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanary"
-
-//    implementation "com.google.dagger:dagger:$daggerVersion"
-//    implementation "com.google.dagger:dagger-android-support:$daggerVersion"
-//    annotationProcessor "com.google.dagger:dagger-android-processor:$daggerVersion"
-//    annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
-
+    // Dependencies for handling api calls
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
-    implementation "com.squareup.retrofit2:converter-moshi:$retrofitVersion"
-
     implementation "com.google.code.gson:gson:$gsonVersion"
     implementation "com.squareup.retrofit2:converter-gson:$gsonConverterVersion"
 
-//    annotationProcessor "com.ryanharter.auto.value:auto-value-gson:$autoValueGsonVersion"
-//    compileOnly "com.ryanharter.auto.value:auto-value-gson-annotations:$autoValueGsonVersion"
-//    compileOnly "com.google.auto.value:auto-value:$autoValueVersion"
-//    annotationProcessor "com.google.auto.value:auto-value:$autoValueVersion"
+    // Dependency for handling crashes and report uncaught exception
+    implementation "com.tyagiabhinav:crashhandler:$tyagiCrashHandlerVersion"
 
+    // Dependencies for checking memory leaks
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakCanary"
+    releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanary"
 
-    testImplementation "junit:junit:$junitVersion"
+    // Android Testing Support Library's runner and rules
     androidTestImplementation "com.android.support.test:runner:$testRunnerVersion"
+    androidTestImplementation "com.android.support.test:rules:$testRulesVersion"
+
+    // Dependencies for local unit tests
+    testImplementation "junit:junit:$junitVersion"
+    testImplementation "org.mockito:mockito-all:$mockitoVersion"
+    testImplementation "org.hamcrest:hamcrest-all:$hamcrestVersion"
+
+    // Dependencies for Android unit tests
+    androidTestImplementation "junit:junit:$junitVersion"
+    androidTestImplementation "com.android.support.test:runner:$testRunnerVersion"
+
+    // Espresso UI Testing
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$espressoVersion"
+    androidTestImplementation "com.android.support.test.espresso:espresso-contrib:$espressoVersion"
+    androidTestImplementation "com.android.support.test.espresso:espresso-intents:$espressoVersion"
+//    androidTestImplementation "com.android.support.test.espresso.idling:idling-concurrent:$espressoVersion"
+//    implementation "com.android.support.test.espresso:espresso-idling-resource:$espressoVersion"
+//    androidTestImplementation 'com.google.code.findbugs:jsr305:3.0.1'
 }

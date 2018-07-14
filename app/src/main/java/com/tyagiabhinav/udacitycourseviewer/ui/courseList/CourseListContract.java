@@ -18,16 +18,20 @@ public interface CourseListContract {
 
         void showCourses(List<Courses> courseList);
 
-        void showLoadingCourseError();
+        void onCourseSelected(Courses selectedCourse, int selectedPosition);
 
         void showNoCourse();
+
+        void showCourseLoadError();
+
+        boolean isActive();
     }
 
     interface Presenter extends BasePresenter<View> {
 
         void loadCourses();
 
-        void onCourseSelected(Courses selectedCourse);
+        void onCourseSelected(Courses selectedCourse, int position);
 
         void takeView(View view);
     }

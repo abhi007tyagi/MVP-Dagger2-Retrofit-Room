@@ -11,6 +11,7 @@
     <string name="no_name_msg">Name not available</string>
     <string name="no_bio_msg">Bio not available</string>
     <string name="no_course_instructors_msg">No instructor for this course</string>
-
+    <string name="one_course_instructors_msg">Course Instructor</string>
     <string name="course_instructors">Course Instructors</string>
+    <string name="error_fetching_data">There was an error fetching data. Try again later!!</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.tyagiabhinav.udacitycourseviewer.testUtils;
+package com.tyagiabhinav.udacitycourseviewer;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

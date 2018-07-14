@@ -29,14 +29,21 @@ final class CourseListPresenter implements CourseListContract.Presenter {
     @Override
     public void loadCourses() {
         mCourseView.setLoadingIndicator(true);
+
         mCourseRepository.getCourses(new DataSource.GetCourseList() {
             @Override
             public void onCoursesFetched(List<Courses> coursesList) {
-                Log.d(TAG, "onCoursesFetched");
-                Log.d(TAG, "onCoursesFetched: " + coursesList.get(0).getTitle());
-                Log.d(TAG, "onCoursesFetched: " + mCourseView);
-                mCourseView.showCourses(coursesList);
-                mCourseView.setLoadingIndicator(false);
+                if(coursesList.size()>0) {
+                    Log.d(TAG, "onCoursesFetched");
+                    Log.d(TAG, "onCoursesFetched: " + coursesList.get(0).getTitle());
+                    Log.d(TAG, "onCoursesFetched: " + mCourseView);
+
+                    mCourseView.showCourses(coursesList);
+                    mCourseView.setLoadingIndicator(false);
+                }else{
+                    mCourseView.showCourseLoadError();
+                    mCourseView.setLoadingIndicator(false);
+                }
             }
 
             @Override
@@ -49,8 +56,8 @@ final class CourseListPresenter implements CourseListContract.Presenter {
     }
 
     @Override
-    public void onCourseSelected(Courses selectedCourse) {
-
+    public void onCourseSelected(Courses selectedCourse, int position) {
+        mCourseView.onCourseSelected(selectedCourse, position);
     }
 
     @Override
@@ -63,4 +70,5 @@ final class CourseListPresenter implements CourseListContract.Presenter {
     public void dropView() {
         this.mCourseView = null;
     }
+
 }

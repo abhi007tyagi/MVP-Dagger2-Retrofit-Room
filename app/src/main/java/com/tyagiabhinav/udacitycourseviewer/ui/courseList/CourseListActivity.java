@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.tyagiabhinav.udacitycourseviewer.R;
 import com.tyagiabhinav.udacitycourseviewer.model.pojo.Courses;
@@ -50,36 +51,16 @@ public class CourseListActivity extends DaggerAppCompatActivity implements Cours
     @BindView(R.id.progressBar)
     ProgressBar mProgressBar;
 
+    @BindView(R.id.noCourseAvailable)
+    TextView mNoCourseFound;
+
     private boolean mTwoPane = false;
     private List<Courses> mStateSavedList;
     private CourseListRecyclerViewAdapter mRecyclerAdapter;
 
+    private boolean isActive = false;
 
-    private CourseListActivity.OnCourseSelectedListener mCourseClickListener = new CourseListActivity.OnCourseSelectedListener() {
-        @Override
-        public void onCouseSelected(Courses selectedCourse, int position) {
-            Bundle arguments = new Bundle();
-            arguments.putParcelable(Constants.SELECTED_COURSE, selectedCourse);
-            if (mTwoPane) {
-//                Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.course_detail_container);
-//                if (fragment == null) {
-//                    // Get the fragment from dagger
-//                    fragment = mCourseDetailFragmentProvider.get();
-//                }
-                // Get the fragment from dagger
-                CourseDetailFragment fragment = new CourseDetailFragment();
-                arguments.putBoolean(Constants.TWO_PANE, true);
-                fragment.setArguments(arguments);
-                ActivityUtils.replaceFragmentInActivity(getSupportFragmentManager(), fragment, R.id.course_detail_container);
-            } else {
-                Intent intent = new Intent(CourseListActivity.this, CourseDetailActivity.class);
-                arguments.putBoolean(Constants.TWO_PANE, false);
-                intent.putExtras(arguments);
-                startActivity(intent);
-            }
-            Log.d(TAG, "onCouseSelected: " + selectedCourse.getTitle());
-        }
-    };
+//    private CountingIdlingResource mIdlingResource = new CountingIdlingResource("Data_Loader");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,6 +92,7 @@ public class CourseListActivity extends DaggerAppCompatActivity implements Cours
 
         mCourseListPresenter.takeView(this);
 
+//        mIdlingResource.increment();
         if (savedInstanceState != null) {
             Log.d(TAG, "onCreate: using saved state list");
             mStateSavedList = savedInstanceState.getParcelableArrayList(Constants.COURSE_LIST);
@@ -119,46 +101,14 @@ public class CourseListActivity extends DaggerAppCompatActivity implements Cours
             Log.d(TAG, "onCreate: fresh load");
             mCourseListPresenter.loadCourses();
         }
-
-//        mfragment = getSupportFragmentManager().findFragmentById(R.id.contentFrame);
-//        if (savedInstanceState != null) {
-//            //Restore the fragment's instance
-//            mfragment = getSupportFragmentManager().getFragment(savedInstanceState, "savedFragment");
-//        }
-//        if (mfragment == null) {
-//            if (isDetailScreen) {
-//                mfragment = mCourseDetailFragmentProvider.get();
-//            } else {
-//                mfragment = mCourseListFragmentProvider.get();
-//            }
-//        } else if (mfragment instanceof CourseListFragment) {
-//            // Get the fragment from dagger
-//            mfragment = mCourseListFragmentProvider.get();
-//        } else if (mfragment instanceof CourseDetailFragment) {
-//            // Get the fragment from dagger
-//            mfragment = mCourseDetailFragmentProvider.get();
-//        }
-//
-//        ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), mfragment, R.id.contentFrame);
     }
-
-//    @Override
-//    public void onConfigurationChanged(Configuration newConfig) {
-//        super.onConfigurationChanged(newConfig);
-//
-//        // Checks the orientation of the screen
-//        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-//            Toast.makeText(this, "landscape", Toast.LENGTH_SHORT).show();
-//        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
-//            Toast.makeText(this, "portrait", Toast.LENGTH_SHORT).show();
-//        }
-//    }
 
     @Override
     public void onResume() {
         Log.d(TAG, "onResume");
         super.onResume();
         mCourseListPresenter.takeView(this);
+        isActive = true;
     }
 
 
@@ -168,6 +118,7 @@ public class CourseListActivity extends DaggerAppCompatActivity implements Cours
         super.onDestroy();
         mCourseListPresenter.dropView();  //prevent leaking activity in
         // case presenter is orchestrating a long running task
+        isActive = false;
     }
 
     @Override
@@ -176,27 +127,6 @@ public class CourseListActivity extends DaggerAppCompatActivity implements Cours
         super.onSaveInstanceState(outState);
         outState.putParcelableArrayList(Constants.COURSE_LIST, new ArrayList<>(mStateSavedList));
     }
-
-//    @Override
-//    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-//        super.onRestoreInstanceState(savedInstanceState);
-//        mStateSavedList = savedInstanceState.getParcelableArrayList(Constants.COURSE_LIST);
-//    }
-
-    //
-//    @Override
-//    public void onFragmentInteraction(Courses selectedCourse) {
-//        Log.d(TAG, "onFragmentInteraction");
-//        // Get the fragment from dagger
-//        CourseDetailFragment courseDetailFragment = mCourseDetailFragmentProvider.get();
-//
-//        Bundle bundle = new Bundle();
-//        bundle.putParcelable(SELECTED_COURSE, selectedCourse);
-//        courseDetailFragment.setArguments(bundle);
-//
-//        isDetailScreen = true;
-//        ActivityUtils.replaceFragmentInActivity(getSupportFragmentManager(), courseDetailFragment, R.id.contentFrame);
-//    }
 
     @Override
     public void setLoadingIndicator(boolean active) {
@@ -210,28 +140,55 @@ public class CourseListActivity extends DaggerAppCompatActivity implements Cours
     @Override
     public void showCourses(List<Courses> courseList) {
         Log.d(TAG, "showCourses");
+//        mIdlingResource.decrement();
         if (courseList.size() < 1) {
+            mNoCourseFound.setVisibility(View.VISIBLE);
             Snackbar.make(mRecyclerView, getString(R.string.no_course_found), Snackbar.LENGTH_LONG).setAction("Action", null).show();
         } else if (mRecyclerView != null) {
-            Log.d(TAG, "setupRecyclerView: ");
+            mNoCourseFound.setVisibility(View.INVISIBLE);
             mStateSavedList = courseList;
-            mRecyclerAdapter = new CourseListRecyclerViewAdapter(courseList, mCourseClickListener);
+            mRecyclerAdapter = new CourseListRecyclerViewAdapter(courseList, mCourseListPresenter);
             mRecyclerView.setAdapter(mRecyclerAdapter);
             mRecyclerAdapter.notifyDataSetChanged();
         }
     }
 
     @Override
-    public void showLoadingCourseError() {
-
+    public void onCourseSelected(Courses selectedCourse, int selectedPosition) {
+        Bundle arguments = new Bundle();
+        arguments.putParcelable(Constants.SELECTED_COURSE, selectedCourse);
+        if (mTwoPane) {
+            CourseDetailFragment fragment = new CourseDetailFragment();
+            arguments.putBoolean(Constants.TWO_PANE, true);
+            fragment.setArguments(arguments);
+            ActivityUtils.replaceFragmentInActivity(getSupportFragmentManager(), fragment, R.id.course_detail_container);
+        } else {
+            Intent intent = new Intent(CourseListActivity.this, CourseDetailActivity.class);
+            arguments.putBoolean(Constants.TWO_PANE, false);
+            intent.putExtras(arguments);
+            startActivity(intent);
+        }
+        Log.d(TAG, "onCouseSelected: " + selectedCourse.getTitle());
     }
 
     @Override
     public void showNoCourse() {
-
+        mNoCourseFound.setVisibility(View.VISIBLE);
     }
 
-    public interface OnCourseSelectedListener {
-        void onCouseSelected(Courses course, int position);
+    @Override
+    public void showCourseLoadError() {
+        mNoCourseFound.setText(R.string.error_fetching_data);
+        mNoCourseFound.setVisibility(View.VISIBLE);
     }
+
+    // used in unit test
+    @Override
+    public boolean isActive() {
+        return isActive;
+    }
+
+//    public IdlingResource getIdlingResource() {
+//        return mIdlingResource;
+//    }
 }

@@ -6,7 +6,7 @@ import android.arch.persistence.room.RoomDatabase;
 /**
  * The Room Database that contains the Task table.
  */
-@Database(entities = {Course.class, Instructor.class}, version = 2, exportSchema = false)
+@Database(entities = {Course.class, Instructor.class}, version = 1, exportSchema = false)
 public abstract class CourseDatabase extends RoomDatabase {
 
     public abstract CourseDAO courseDao();

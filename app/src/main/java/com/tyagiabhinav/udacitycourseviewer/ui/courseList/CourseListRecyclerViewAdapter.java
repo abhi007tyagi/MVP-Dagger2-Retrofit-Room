@@ -24,14 +24,13 @@ import butterknife.ButterKnife;
 public class CourseListRecyclerViewAdapter extends RecyclerView.Adapter<CourseListRecyclerViewAdapter.ViewHolder> {
 
     private final List<Courses> mCourseList;
-    private CourseListActivity.OnCourseSelectedListener mListener;
+//    private CourseListActivity.OnCourseSelectedListener mListener;
+    private CourseListPresenter mPresenter;
 
-//    @Inject
-//    public Picasso picasso;
-
-    public CourseListRecyclerViewAdapter(List<Courses> courses, CourseListActivity.OnCourseSelectedListener listener) {
+    public CourseListRecyclerViewAdapter(List<Courses> courses,/* CourseListActivity.OnCourseSelectedListener listener,*/ CourseListPresenter presenter) {
         this.mCourseList = courses;
-        this.mListener = listener;
+//        this.mListener = listener;
+        this.mPresenter = presenter;
     }
 
     @Override
@@ -89,8 +88,8 @@ public class CourseListRecyclerViewAdapter extends RecyclerView.Adapter<CourseLi
 
     private void handleOnClickListener(View v, ViewHolder holder, int position) {
 
-        mListener.onCouseSelected(holder.mItem, position);
-
+//        mListener.onCouseSelected(holder.mItem, position);
+        mPresenter.onCourseSelected(holder.mItem, position);
 
 //        Bundle arguments = new Bundle();
 //        arguments.putParcelable(Constants.SELECTED_RESTAURANT, holder.mItem);

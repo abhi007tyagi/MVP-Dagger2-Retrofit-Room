@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.tyagiabhinav.udacitycourseviewer.R;
@@ -26,7 +27,7 @@ import butterknife.ButterKnife;
 import dagger.android.support.DaggerFragment;
 
 
-public class CourseDetailFragment extends DaggerFragment implements ViewPager.OnPageChangeListener{
+public class CourseDetailFragment extends DaggerFragment implements ViewPager.OnPageChangeListener {
 
     public static final String TAG = CourseDetailFragment.class.getSimpleName();
 
@@ -39,22 +40,22 @@ public class CourseDetailFragment extends DaggerFragment implements ViewPager.On
     }
 
     @BindView(R.id.title)
-    TextView title;
+    TextView mTitle;
 
     @BindView(R.id.summary)
-    TextView summary;
+    TextView mSummary;
 
     @BindView(R.id.level)
-    TextView level;
+    TextView mLevel;
 
     @BindView(R.id.duration)
-    TextView duration;
+    TextView mDuration;
 
     @BindView(R.id.instructorHeading)
-    TextView instructorHeading;
+    TextView mInstructorHeading;
 
-//    @BindView(R.id.dotIndicatorLayout)
-//    LinearLayout dotIndicatorLayout;
+    @BindView(R.id.pageIndicator)
+    LinearLayout mPagerIndicator;
 
 //    @BindView(R.id.instructorsListRecyclerView)
 //    RecyclerView mRecyclerView;
@@ -62,9 +63,8 @@ public class CourseDetailFragment extends DaggerFragment implements ViewPager.On
     @BindView(R.id.instructorsPager)
     ViewPager mInstructorsPager;
 
-    private InstructorInfoRecyclerViewAdapter mRecyclerAdapter;
     private Courses mSelectedCourse;
-    private boolean mTwoPane;
+    //    private boolean mTwoPane;
     private ImageView[] dots;
     private int dotsCount;
     private InstructorViewPagerAdapter mAdapter;
@@ -85,7 +85,7 @@ public class CourseDetailFragment extends DaggerFragment implements ViewPager.On
         // get arguments passed from activity
         if (getArguments().containsKey(Constants.SELECTED_COURSE)) {
             mSelectedCourse = getArguments().getParcelable(Constants.SELECTED_COURSE);
-            mTwoPane = getArguments().getBoolean(Constants.TWO_PANE);
+//            mTwoPane = getArguments().getBoolean(Constants.TWO_PANE);
         }
     }
 
@@ -97,59 +97,69 @@ public class CourseDetailFragment extends DaggerFragment implements ViewPager.On
 
         ButterKnife.bind(this, view);
 
-        title.setText((mSelectedCourse.getTitle().trim().isEmpty()) ? getString(R.string.no_title_msg) : mSelectedCourse.getTitle());
-        level.setText((mSelectedCourse.getLevel().trim().isEmpty()) ? getString(R.string.no_level_msg) : mSelectedCourse.getLevel());
-        duration.setText((mSelectedCourse.getExpected_duration() == 0 && mSelectedCourse.getExpected_duration_unit().trim().isEmpty()) ? getString(R.string.no_duration_msg) : String.format(Locale.getDefault(), "%d %s",
+        mTitle.setText((mSelectedCourse.getTitle().trim().isEmpty()) ? getString(R.string.no_title_msg) : mSelectedCourse.getTitle());
+        mLevel.setText((mSelectedCourse.getLevel().trim().isEmpty()) ? getString(R.string.no_level_msg) : mSelectedCourse.getLevel());
+        mDuration.setText((mSelectedCourse.getExpected_duration() == 0 && mSelectedCourse.getExpected_duration_unit().trim().isEmpty()) ? getString(R.string.no_duration_msg) : String.format(Locale.getDefault(), "%d %s",
                 mSelectedCourse.getExpected_duration(), mSelectedCourse.getExpected_duration_unit()));
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-            summary.setText((mSelectedCourse.getSummary().trim().isEmpty()) ? getString(R.string.no_summary_msg) : Html.fromHtml(mSelectedCourse.getSummary(), Html.FROM_HTML_MODE_LEGACY));
+            mSummary.setText((mSelectedCourse.getSummary().trim().isEmpty()) ? getString(R.string.no_summary_msg) : Html.fromHtml(mSelectedCourse.getSummary(), Html.FROM_HTML_MODE_LEGACY));
         } else {
-            summary.setText((mSelectedCourse.getSummary().trim().isEmpty()) ? getString(R.string.no_summary_msg) : Html.fromHtml(mSelectedCourse.getSummary()));
+            mSummary.setText((mSelectedCourse.getSummary().trim().isEmpty()) ? getString(R.string.no_summary_msg) : Html.fromHtml(mSelectedCourse.getSummary()));
         }
-        summary.setMovementMethod(LinkMovementMethod.getInstance());
+        mSummary.setMovementMethod(LinkMovementMethod.getInstance());
 
-        if(mSelectedCourse.getInstructors().size() > 0 ){
+        int instructorsSize = mSelectedCourse.getInstructors().size();
+        if (instructorsSize > 0) {
             mAdapter = new InstructorViewPagerAdapter(getActivity(), mSelectedCourse.getInstructors());
             mInstructorsPager.setAdapter(mAdapter);
-//            mInstructorsPager.setCurrentItem(0);
-//            mInstructorsPager.setOnPageChangeListener(this);
+            mInstructorsPager.setCurrentItem(0);
+            mInstructorsPager.setOnPageChangeListener(this);
+            if (instructorsSize == 1) {
+                mInstructorHeading.setText(getString(R.string.one_course_instructors_msg));
+                mPagerIndicator.setVisibility(View.GONE);
+            } else {
+                mPagerIndicator.setVisibility(View.VISIBLE);
+                setUiPageViewController();
+            }
+        } else {
+            mInstructorHeading.setText(getString(R.string.no_course_instructors_msg));
         }
-
-//        // to improve performance as changes in content do not change the layout size of the RecyclerView
-//        mRecyclerView.setHasFixedSize(true);
-//
-//        // use linear layout manager for positioning of items in the list in list formation
-//        final RecyclerView.LayoutManager instructorLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
-//        mRecyclerView.setLayoutManager(instructorLayoutManager);
-//        mRecyclerView.addItemDecoration(mDividerLine);
-//
-//        if (mSelectedCourse.getInstructors().size() < 1) {
-//            instructorHeading.setText(getString(R.string.no_course_instructors_msg));
-//        }
-//
-//        if (mRecyclerView != null) {
-//            Log.d(TAG, "setupRecyclerView: ");
-//            mRecyclerAdapter = new InstructorInfoRecyclerViewAdapter(mSelectedCourse.getInstructors());
-//            mRecyclerView.setAdapter(mRecyclerAdapter);
-//            mRecyclerAdapter.notifyDataSetChanged();
-//        }
-
         return view;
     }
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
     }
 
     @Override
     public void onPageSelected(int position) {
-
+        for (int i = 0; i < dotsCount; i++) {
+            dots[i].setImageDrawable(getResources().getDrawable(R.drawable.white_dot));
+        }
+        dots[position].setImageDrawable(getResources().getDrawable(R.drawable.grey_dot));
     }
 
     @Override
     public void onPageScrollStateChanged(int state) {
+    }
 
+    private void setUiPageViewController() {
+
+        dotsCount = mAdapter.getCount();
+        dots = new ImageView[dotsCount];
+
+        for (int i = 0; i < dotsCount; i++) {
+            dots[i] = new ImageView(getActivity());
+            dots[i].setImageDrawable(getResources().getDrawable(R.drawable.white_dot));
+
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+            );
+            params.setMargins(11, 7, 11, 7);
+            mPagerIndicator.addView(dots[i], params);
+        }
+        dots[0].setImageDrawable(getResources().getDrawable(R.drawable.grey_dot));
     }
 }
