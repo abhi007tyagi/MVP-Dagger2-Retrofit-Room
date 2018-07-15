@@ -37,9 +37,11 @@ dependencies {
     annotationProcessor "android.arch.persistence.room:compiler:$roomVersion"
     implementation "com.google.guava:guava:$guavaVersion"
 
+    // Dependency for adding Butterknife
     implementation "com.jakewharton:butterknife:$butterKnife"
     annotationProcessor "com.jakewharton:butterknife-compiler:$butterKnife"
 
+    // Dependency for Image Loading
     implementation "com.squareup.picasso:picasso:$picasso"
 
     // Dependencies for DI using Dagger2
@@ -79,7 +81,4 @@ dependencies {
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$espressoVersion"
     androidTestImplementation "com.android.support.test.espresso:espresso-contrib:$espressoVersion"
     androidTestImplementation "com.android.support.test.espresso:espresso-intents:$espressoVersion"
-//    androidTestImplementation "com.android.support.test.espresso.idling:idling-concurrent:$espressoVersion"
-//    implementation "com.android.support.test.espresso:espresso-idling-resource:$espressoVersion"
-//    androidTestImplementation 'com.google.code.findbugs:jsr305:3.0.1'
 }

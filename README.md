@@ -1,11 +1,11 @@
 # MVP-Dagger2-Retrofit-Room
 Application to showcase use of MVP with Dagger2, Retrofit and Room
 
-Please Note: Proguard settings for testing should be uncommented while doing testing.
+**Please Note:** _Proguard settings for testing should be uncommented while doing testing._
 
 App tested on:
-- Nexus 5 (Marshmallow)
-- Emulator custome for low memory, small screen tests
+- Nexus 5 (Marshmallow) - Intrumentation test using Espresso
+- Emulator custom for low memory, small screen tests
 - Emulator Nexus 9 for testing large screen (w820dp+) orientation changes
 
 Code quality test:
